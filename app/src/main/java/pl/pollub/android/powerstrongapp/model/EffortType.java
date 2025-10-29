@@ -8,4 +8,5 @@ public class EffortType {
     @PrimaryKey
     public int id;
     public String effortTypeName;
+    public String description;
 }

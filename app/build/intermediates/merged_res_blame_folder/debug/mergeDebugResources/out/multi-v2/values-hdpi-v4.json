@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-30:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.10.2\\transforms\\d6f974fec60eb933fcc68abd78de55c0\\transformed\\appcompat-1.7.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}

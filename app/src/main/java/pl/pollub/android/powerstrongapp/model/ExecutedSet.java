@@ -18,7 +18,7 @@ import lombok.Setter;
         tableName = "executed_set",
         foreignKeys = {
                 @ForeignKey(entity = PlannedExercise.class, parentColumns = "id", childColumns = "planned_exercise_id"),
-                @ForeignKey(entity = UsersTrainingPlans.class, parentColumns = "user_id, training_plan_id",
+                @ForeignKey(entity = UserTrainingPlan.class, parentColumns = "user_id, training_plan_id",
                         childColumns = "user_training_plan_user_id, user_training_plan_plan_id")
         }
 )

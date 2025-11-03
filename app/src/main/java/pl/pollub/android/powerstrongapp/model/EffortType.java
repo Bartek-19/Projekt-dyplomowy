@@ -12,9 +12,7 @@ import lombok.Setter;
 public class EffortType {
     @PrimaryKey
     private int id;
-
     @NotNull
     private String effortTypeName;
-
     private String description;
 }

@@ -1,9 +1,11 @@
 package pl.pollub.android.powerstrongapp.model;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -12,15 +14,16 @@ public interface ExecutedSetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ExecutedSet executedSet);
 
-    @Query("SELECT * FROM executed_sets WHERE user_id = :userId")
-    List<ExecutedSet> getExecutedSetsForU(int userId);
+    @Update
+    void update(ExecutedSet executedSet);
 
-    @Query("SELECT * FROM executed_sets WHERE exercise_id = :exerciseId AND user_id = :userId")
-    List<ExecutedSet> getExecutedSetsForEU(int exerciseId, int userId);
+    @Delete
+    void delete(ExecutedSet executedSet);
 
-    @Query("SELECT * FROM executed_sets WHERE exercise_id = :exerciseId AND training_day_id = :dayId AND user_id = :userId")
-    List<ExecutedSet> getExecutedSetsForEDU(int exerciseId, int dayId, int userId);
+    @Query("SELECT * FROM executed_set WHERE id = :id")
+    List<ExecutedSet> getExecutedSet(int id);
 
-    @Query("SELECT * FROM executed_sets WHERE exercise_id = :exerciseId AND training_day_id = :dayId AND user_id = :userId AND effort_type_id = :effortTypeId")
-    List<ExecutedSet> getExecutedSetsForEDUEF(int exerciseId, int dayId, int userId, int effortTypeId);
+    @Query("SELECT * FROM executed_set WHERE planned_exercise_id = :plannedExerciseId")
+    List<ExecutedSet> getExecutedSetsForPlannedExercise(int plannedExerciseId);
 }
+

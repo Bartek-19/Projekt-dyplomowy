@@ -4,28 +4,32 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity(
-        tableName = "executed_sets",
+        tableName = "executed_set",
         foreignKeys = {
-                @ForeignKey(entity = Exercise.class, parentColumns = "id", childColumns = "exercise_id"),
-                @ForeignKey(entity = TrainingDay.class, parentColumns = "id", childColumns = "training_day_id"),
-                @ForeignKey(entity = UsersTrainingPlans.class, parentColumns = "user_id, training_plan_id", childColumns = "user_id, training_plan_id")
+                @ForeignKey(entity = PlannedExercise.class, parentColumns = "id", childColumns = "planned_exercise_id"),
+                @ForeignKey(entity = UsersTrainingPlans.class, parentColumns = "user_id, training_plan_id",
+                        childColumns = "user_training_plan_user_id, user_training_plan_plan_id")
         }
 )
-
 public class ExecutedSet {
-    @PrimaryKey(autoGenerate = true)
-    public int id;
-    public int setNumber;
-    public int executedRepetitions;
-    public float weightUsed;
-    public float weightPlanned;
-    public Date executionDate;
-    public int exercise_id;
-    public int training_day_id;
-    public int effort_type_id;
-    public int user_id;
-    public int training_plan_id;
+    @PrimaryKey
+    private int id;
+    private int setNumber;
+    private int executedReps;
+    private double weightUsed;
+    private Date executionDate;
+    private int user_training_plan_user_id;
+    private int user_training_plan_plan_id;
+    private int planned_exercise_id;
 }

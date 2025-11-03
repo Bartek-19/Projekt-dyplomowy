@@ -3,6 +3,11 @@ package pl.pollub.android.powerstrongapp.model;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity(
         tableName = "exercise_has_movement_pattern",
         primaryKeys = {"exercise_id", "movement_pattern_id"},
@@ -12,6 +17,6 @@ import androidx.room.ForeignKey;
         }
 )
 public class ExerciseHasMovementPattern {
-    public int exercise_id;
-    public int movement_pattern_id;
+    private int exercise_id;
+    private int movement_pattern_id;
 }

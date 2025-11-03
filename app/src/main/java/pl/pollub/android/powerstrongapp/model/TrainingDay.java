@@ -4,19 +4,23 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity(
         tableName = "training_day",
         foreignKeys = @ForeignKey(
-                entity = TrainingPlan.class,
-                parentColumns = "id",
-                childColumns = "training_plan_id"
+                entity = TrainingPlan.class, parentColumns = "id", childColumns = "training_plan_id"
         )
 )
 public class TrainingDay {
     @PrimaryKey
-    public int id;
-    public int training_plan_id;
-    public String weekDay;
-    public String week;
+    private int id;
+    private int weekNumber;
+    private String dayName;
+    private int dayOrder;
+    private int training_plan_id;
 }
 

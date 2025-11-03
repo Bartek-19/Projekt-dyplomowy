@@ -4,9 +4,13 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity(
-        tableName = "exercises_in_training",
-        primaryKeys = {"exercise_id", "training_day_id", "effort_type_id"},
+        tableName = "planned_exercise",
         foreignKeys = {
                 @ForeignKey(entity = TrainingDay.class, parentColumns = "id", childColumns = "training_day_id"),
                 @ForeignKey(entity = Exercise.class, parentColumns = "id", childColumns = "exercise_id"),
@@ -14,10 +18,13 @@ import androidx.room.PrimaryKey;
         }
 )
 public class PlannedExercise {
-    public int exercise_id;
-    public int repetitions;
-    public int sets;
-    public float baseline_weight;
-    public int training_day_id;
-    public int effort_type_id;
+    @PrimaryKey
+    private int id;
+    private int exerciseOrder;
+    private int plannedReps;
+    private int plannedSets;
+    private float plannedWeight;
+    private int exercise_id;
+    private int training_day_id;
+    private int effort_type_id;
 }

@@ -12,5 +12,5 @@ public class TrainingDayWithExercises {
             parentColumn = "id",
             entityColumn = "training_day_id"
     )
-    public List<ExercisesInTraining> exercisesInTraining;
+    public List<PlannedExercise> plannedExercises;
 }

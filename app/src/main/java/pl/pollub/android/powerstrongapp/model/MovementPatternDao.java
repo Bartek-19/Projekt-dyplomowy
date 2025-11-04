@@ -11,6 +11,9 @@ public interface MovementPatternDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(MovementPattern movementPattern);
 
+    @Query("SELECT * FROM movement_pattern")
+    List<MovementPattern> getAllMovementPatterns();
+
     @Query("SELECT * FROM movement_pattern WHERE id = :id")
-    List<MovementPattern> getMovementPattern(int id);
+    List<MovementPattern> getMovementPatternById(int id);
 }

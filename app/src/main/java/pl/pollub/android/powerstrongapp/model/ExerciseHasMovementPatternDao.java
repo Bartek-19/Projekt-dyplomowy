@@ -18,7 +18,10 @@ public interface ExerciseHasMovementPatternDao {
     void delete(ExerciseHasMovementPattern relation);
 
     @Query("SELECT * FROM exercise_has_movement_pattern WHERE exercise_id = :exerciseId")
-    List<ExerciseHasMovementPattern> getMovementPatternsIdForExerciseId(int exerciseId);
+    List<ExerciseHasMovementPattern> getMovementPatternIdsForExerciseId(int exerciseId);
+
+    @Query("SELECT * FROM exercise_has_movement_pattern WHERE movement_pattern_id = :movementPatternId")
+    List<ExerciseHasMovementPattern> getExerciseIdsForMovementPatternId(int movementPatternId);
 
     @Transaction
     @Query("SELECT mp.* FROM movement_pattern mp INNER JOIN exercise_has_movement_pattern ehmp ON mp.id = ehmp.movement_pattern_id WHERE ehmp.exercise_id = :exerciseId")

@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 @Database(
         entities = {
                 User.class,
-                UsersTrainingPlans.class,
+                UserTrainingPlan.class,
                 TrainingPlan.class,
                 TrainingMethod.class,
                 TrainingDay.class,
@@ -17,7 +17,7 @@ import androidx.room.RoomDatabase;
                 ExerciseTargetMuscleGroup.class,
                 TargetMuscleGroup.class,
                 EffortType.class,
-                ExercisesInTraining.class,
+                PlannedExercise.class,
                 ExecutedSet.class
         },
         version = 1

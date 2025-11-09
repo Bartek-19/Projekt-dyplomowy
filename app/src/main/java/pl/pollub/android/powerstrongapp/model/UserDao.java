@@ -13,4 +13,3 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE id = :id")
     User getUserById(int id);
 }
-

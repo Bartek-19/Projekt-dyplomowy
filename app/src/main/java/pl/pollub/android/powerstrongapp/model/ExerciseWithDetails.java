@@ -14,7 +14,7 @@ public class ExerciseWithDetails {
             entityColumn = "exercise_id",
             entity = ExerciseTargetMuscleGroup.class
     )
-    public List<ExerciseTargetMuscleGroup> targetMuscles;
+    public List<ExerciseTargetMuscleGroup> targetMuscleGroups;
 
     @Relation(
             parentColumn = "id",

@@ -4,16 +4,18 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity(tableName = "user")
 public class User {
     @PrimaryKey
-    public int id;
-
-    public String username;
-    public String password;
-    public String email;
-    public boolean activeStatus;
-    public Date createDate;
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private boolean activeStatus;
+    private Date createDate;
 }
-
-

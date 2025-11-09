@@ -1,3 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PowerStrongApp</string>
+    <string name="app_name" translatable="false">PowerStrong</string>
+    <string name="greeting_hello">Hello, %1$s!</string>
+    <string name="notification_icon">Notifications</string>
+    <string name="profile_icon">User profile</string>
+    <string name="day_number">"Day %1$d "</string>
+    <string name="start_training">BEGIN TRAINING</string>
+    <string name="continue_training">CONTINUE TRAINING</string>
+    <string name="exercises_remaining">%1$d exercises remaining</string>
+    <string name="exercises_remaining_single">Only 1 exercise left</string>
+    <string name="exercises_remaining_many">%1$d exercises remaining</string>
+    <string name="calendar_icon">Calendar</string>
+    <string name="next_training">Next training:</string>
+    <string name="next_training_date">Next training: %1$s</string>
+    <string name="add_plan_icon">Add plan</string>
+    <string name="no_active_plan">No active plan</string>
+    <string name="choose_or_create_plan">Pick a preset plan or make a custom one</string>
+    <string name="start_training_plan">Begin a training plan</string>
+    <string name="plan_progress_title">Training plan progress</string>
+    <string name="plan_progress_days">Day %1$d/%2$d</string>
+    <string name="your_stats">Your stats</string>
+    <string name="trainings_count" translatable="false">%1$d/%2$d</string>
+    <string name="trainings_label">Trainings</string>
+    <string name="streak_days" translatable="false">%1$d 🔥</string>
+    <string name="streak_label">Day streak</string>
+    <string name="last_pr_weight" translatable="false">%1$dkg</string>
+    <string name="last_pr_label">Last PR</string>
+    <string name="nav_home">Main</string>
+    <string name="nav_plans">Plans</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_settings">Settings</string>
 </resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Main Activity -->
+    <string name="greeting_hello">Witaj, %1$s!</string>
+    <string name="notification_icon">Powiadomienia</string>
+    <string name="profile_icon">Profil użytkownika</string>
+
+    <!-- Training Button -->
+    <string name="day_number">Dzień %1$d</string>
+    <string name="start_training">ROZPOCZNIJ ĆWICZENIA</string>
+    <string name="continue_training">KONTYNUUJ ĆWICZENIA</string>
+    <string name="exercises_remaining">Pozostały %1$d ćwiczenia</string>
+    <string name="exercises_remaining_single">Pozostało tylko 1 ćwiczenie</string>
+    <string name="exercises_remaining_many">Pozostało %1$d ćwiczeń</string>
+
+    <!-- No Training Today -->
+    <string name="calendar_icon">Kalendarz</string>
+    <string name="next_training">Następny trening:</string>
+    <string name="next_training_date">Następny trening: %1$s</string>
+
+    <!-- No Active Plan -->
+    <string name="add_plan_icon">Dodaj plan</string>
+    <string name="no_active_plan">Brak aktywnego planu</string>
+    <string name="choose_or_create_plan">Wybierz gotowy plan lub stwórz własny</string>
+    <string name="start_training_plan">Rozpocznij plan treningowy</string>
+
+    <!-- Plan Progress -->
+    <string name="plan_progress_title">Postęp planu treningowego</string>
+    <string name="plan_progress_days">Dzień %1$d/%2$d</string>
+
+    <!-- Statistics -->
+    <string name="your_stats">Twoje statystyki</string>
+    <string name="trainings_label">Treningi</string>
+    <string name="streak_label">Dni z rzędu</string>
+    <string name="last_pr_label">Ostatni PR</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Główna</string>
+    <string name="nav_plans">Plany</string>
+    <string name="nav_profile">Profil</string>
+    <string name="nav_settings">Ustawienia</string>
+</resources>

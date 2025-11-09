@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home"> <fragment
+    android:id="@+id/nav_home"
+    android:name="pl.pollub.android.powerstrongapp.HomeFragment"
+    android:label="fragment_home"
+    tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_plans"
+        android:name="pl.pollub.android.powerstrongapp.PlanListFragment" android:label="fragment_plan_list"
+        tools:layout="@layout/fragment_plan_list" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="pl.pollub.android.powerstrongapp.ProfileFragment" android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/workoutFragment"
+        android:name="pl.pollub.android.powerstrongapp.WorkoutFragment"
+        android:label="fragment_workout"
+        tools:layout="@layout/fragment_workout" />
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="pl.pollub.android.powerstrongapp.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_nav_home_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+    </fragment>
+
+</navigation>

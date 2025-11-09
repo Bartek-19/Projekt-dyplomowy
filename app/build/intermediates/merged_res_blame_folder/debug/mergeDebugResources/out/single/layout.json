@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-44:/layout/fragment_workout.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-47:/layout/fragment_workout.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-44:/layout/activity_main.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-47:/layout/activity_main.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-44:/layout/item_exercise.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-47:/layout/item_exercise.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-44:/layout/fragment_home.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-47:/layout/fragment_home.xml"
+    }
+]

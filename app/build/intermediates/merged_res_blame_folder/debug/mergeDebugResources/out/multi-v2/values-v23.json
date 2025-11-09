@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-30:/values-v23/values-v23.xml",
+            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-43:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.10.2\\transforms\\d6c60e3a2fb63d36589fdafb022f10f9\\transformed\\material-1.12.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\6602e24f51c0670c08bf4026a8378e10\\transformed\\material-1.13.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,19,22,25,28,32",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.10.2\\transforms\\4bb90381e0cba049929fb949f2cf3eb2\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\c459091a3ca7663bafb74ef3974ca67d\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -42,7 +42,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.10.2\\transforms\\d6f974fec60eb933fcc68abd78de55c0\\transformed\\appcompat-1.7.1\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\38d362658a399575a8e64690951a1d3f\\transformed\\appcompat-1.7.1\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",

@@ -4,7 +4,7 @@
             "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-30:/values-v26/values-v26.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.10.2\\transforms\\d6f974fec60eb933fcc68abd78de55c0\\transformed\\appcompat-1.7.1\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.11.1\\transforms\\6d09ef31c8c8a99a70a751e4b9678e59\\transformed\\appcompat-1.7.1\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",

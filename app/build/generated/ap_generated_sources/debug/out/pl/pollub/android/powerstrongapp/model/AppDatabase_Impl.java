@@ -21,16 +21,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.Generated;
-
 import pl.pollub.android.powerstrongapp.model.dao.EffortTypeDao;
+import pl.pollub.android.powerstrongapp.model.dao.EffortTypeDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.ExecutedSetDao;
+import pl.pollub.android.powerstrongapp.model.dao.ExecutedSetDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.ExerciseCategoryDao;
+import pl.pollub.android.powerstrongapp.model.dao.ExerciseCategoryDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.ExerciseDao;
+import pl.pollub.android.powerstrongapp.model.dao.ExerciseDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.MovementPatternDao;
+import pl.pollub.android.powerstrongapp.model.dao.MovementPatternDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.TargetMuscleGroupDao;
+import pl.pollub.android.powerstrongapp.model.dao.TargetMuscleGroupDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.TrainingDayDao;
+import pl.pollub.android.powerstrongapp.model.dao.TrainingDayDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.TrainingPlanDao;
+import pl.pollub.android.powerstrongapp.model.dao.TrainingPlanDao_Impl;
 import pl.pollub.android.powerstrongapp.model.dao.UserDao;
+import pl.pollub.android.powerstrongapp.model.dao.UserDao_Impl;
 
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation", "removal"})

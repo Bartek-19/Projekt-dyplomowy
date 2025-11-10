@@ -15,6 +15,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.processing.Generated;
+
+import pl.pollub.android.powerstrongapp.model.dao.UserDao;
+import pl.pollub.android.powerstrongapp.model.entity.User;
 import pl.pollub.android.powerstrongapp.utils.DateConverter;
 
 @Generated("androidx.room.RoomProcessor")

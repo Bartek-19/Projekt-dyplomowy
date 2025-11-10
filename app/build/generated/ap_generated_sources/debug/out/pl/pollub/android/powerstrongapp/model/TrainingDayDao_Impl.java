@@ -21,6 +21,10 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import kotlin.Unit;
+import pl.pollub.android.powerstrongapp.model.dao.TrainingDayDao;
+import pl.pollub.android.powerstrongapp.model.entity.PlannedExercise;
+import pl.pollub.android.powerstrongapp.model.entity.TrainingDay;
+import pl.pollub.android.powerstrongapp.model.relations.TrainingDayWithExercises;
 
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation", "removal"})

@@ -15,6 +15,9 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.processing.Generated;
 
+import pl.pollub.android.powerstrongapp.model.dao.TargetMuscleGroupDao;
+import pl.pollub.android.powerstrongapp.model.entity.TargetMuscleGroup;
+
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation", "removal"})
 public final class TargetMuscleGroupDao_Impl implements TargetMuscleGroupDao {

@@ -22,6 +22,16 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.Generated;
 
+import pl.pollub.android.powerstrongapp.model.dao.EffortTypeDao;
+import pl.pollub.android.powerstrongapp.model.dao.ExecutedSetDao;
+import pl.pollub.android.powerstrongapp.model.dao.ExerciseCategoryDao;
+import pl.pollub.android.powerstrongapp.model.dao.ExerciseDao;
+import pl.pollub.android.powerstrongapp.model.dao.MovementPatternDao;
+import pl.pollub.android.powerstrongapp.model.dao.TargetMuscleGroupDao;
+import pl.pollub.android.powerstrongapp.model.dao.TrainingDayDao;
+import pl.pollub.android.powerstrongapp.model.dao.TrainingPlanDao;
+import pl.pollub.android.powerstrongapp.model.dao.UserDao;
+
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation", "removal"})
 public final class AppDatabase_Impl extends AppDatabase {
@@ -120,7 +130,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoUser = new TableInfo("user", _columnsUser, _foreignKeysUser, _indicesUser);
         final TableInfo _existingUser = TableInfo.read(connection, "user");
         if (!_infoUser.equals(_existingUser)) {
-          return new RoomOpenDelegate.ValidationResult(false, "user(pl.pollub.android.powerstrongapp.model.User).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "user(pl.pollub.android.powerstrongapp.model.entity.User).\n"
                   + " Expected:\n" + _infoUser + "\n"
                   + " Found:\n" + _existingUser);
         }
@@ -141,7 +151,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoUserTrainingPlan = new TableInfo("user_training_plan", _columnsUserTrainingPlan, _foreignKeysUserTrainingPlan, _indicesUserTrainingPlan);
         final TableInfo _existingUserTrainingPlan = TableInfo.read(connection, "user_training_plan");
         if (!_infoUserTrainingPlan.equals(_existingUserTrainingPlan)) {
-          return new RoomOpenDelegate.ValidationResult(false, "user_training_plan(pl.pollub.android.powerstrongapp.model.UserTrainingPlan).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "user_training_plan(pl.pollub.android.powerstrongapp.model.entity.UserTrainingPlan).\n"
                   + " Expected:\n" + _infoUserTrainingPlan + "\n"
                   + " Found:\n" + _existingUserTrainingPlan);
         }
@@ -159,7 +169,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoTrainingPlan = new TableInfo("training_plan", _columnsTrainingPlan, _foreignKeysTrainingPlan, _indicesTrainingPlan);
         final TableInfo _existingTrainingPlan = TableInfo.read(connection, "training_plan");
         if (!_infoTrainingPlan.equals(_existingTrainingPlan)) {
-          return new RoomOpenDelegate.ValidationResult(false, "training_plan(pl.pollub.android.powerstrongapp.model.TrainingPlan).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "training_plan(pl.pollub.android.powerstrongapp.model.entity.TrainingPlan).\n"
                   + " Expected:\n" + _infoTrainingPlan + "\n"
                   + " Found:\n" + _existingTrainingPlan);
         }
@@ -173,7 +183,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoTrainingMethod = new TableInfo("training_method", _columnsTrainingMethod, _foreignKeysTrainingMethod, _indicesTrainingMethod);
         final TableInfo _existingTrainingMethod = TableInfo.read(connection, "training_method");
         if (!_infoTrainingMethod.equals(_existingTrainingMethod)) {
-          return new RoomOpenDelegate.ValidationResult(false, "training_method(pl.pollub.android.powerstrongapp.model.TrainingMethod).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "training_method(pl.pollub.android.powerstrongapp.model.entity.TrainingMethod).\n"
                   + " Expected:\n" + _infoTrainingMethod + "\n"
                   + " Found:\n" + _existingTrainingMethod);
         }
@@ -189,7 +199,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoTrainingDay = new TableInfo("training_day", _columnsTrainingDay, _foreignKeysTrainingDay, _indicesTrainingDay);
         final TableInfo _existingTrainingDay = TableInfo.read(connection, "training_day");
         if (!_infoTrainingDay.equals(_existingTrainingDay)) {
-          return new RoomOpenDelegate.ValidationResult(false, "training_day(pl.pollub.android.powerstrongapp.model.TrainingDay).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "training_day(pl.pollub.android.powerstrongapp.model.entity.TrainingDay).\n"
                   + " Expected:\n" + _infoTrainingDay + "\n"
                   + " Found:\n" + _existingTrainingDay);
         }
@@ -204,7 +214,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoExercise = new TableInfo("exercise", _columnsExercise, _foreignKeysExercise, _indicesExercise);
         final TableInfo _existingExercise = TableInfo.read(connection, "exercise");
         if (!_infoExercise.equals(_existingExercise)) {
-          return new RoomOpenDelegate.ValidationResult(false, "exercise(pl.pollub.android.powerstrongapp.model.Exercise).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "exercise(pl.pollub.android.powerstrongapp.model.entity.Exercise).\n"
                   + " Expected:\n" + _infoExercise + "\n"
                   + " Found:\n" + _existingExercise);
         }
@@ -216,7 +226,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoExerciseCategory = new TableInfo("exercise_category", _columnsExerciseCategory, _foreignKeysExerciseCategory, _indicesExerciseCategory);
         final TableInfo _existingExerciseCategory = TableInfo.read(connection, "exercise_category");
         if (!_infoExerciseCategory.equals(_existingExerciseCategory)) {
-          return new RoomOpenDelegate.ValidationResult(false, "exercise_category(pl.pollub.android.powerstrongapp.model.ExerciseCategory).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "exercise_category(pl.pollub.android.powerstrongapp.model.entity.ExerciseCategory).\n"
                   + " Expected:\n" + _infoExerciseCategory + "\n"
                   + " Found:\n" + _existingExerciseCategory);
         }
@@ -230,7 +240,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoExerciseHasMovementPattern = new TableInfo("exercise_has_movement_pattern", _columnsExerciseHasMovementPattern, _foreignKeysExerciseHasMovementPattern, _indicesExerciseHasMovementPattern);
         final TableInfo _existingExerciseHasMovementPattern = TableInfo.read(connection, "exercise_has_movement_pattern");
         if (!_infoExerciseHasMovementPattern.equals(_existingExerciseHasMovementPattern)) {
-          return new RoomOpenDelegate.ValidationResult(false, "exercise_has_movement_pattern(pl.pollub.android.powerstrongapp.model.ExerciseHasMovementPattern).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "exercise_has_movement_pattern(pl.pollub.android.powerstrongapp.model.entity.ExerciseHasMovementPattern).\n"
                   + " Expected:\n" + _infoExerciseHasMovementPattern + "\n"
                   + " Found:\n" + _existingExerciseHasMovementPattern);
         }
@@ -242,7 +252,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoMovementPattern = new TableInfo("movement_pattern", _columnsMovementPattern, _foreignKeysMovementPattern, _indicesMovementPattern);
         final TableInfo _existingMovementPattern = TableInfo.read(connection, "movement_pattern");
         if (!_infoMovementPattern.equals(_existingMovementPattern)) {
-          return new RoomOpenDelegate.ValidationResult(false, "movement_pattern(pl.pollub.android.powerstrongapp.model.MovementPattern).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "movement_pattern(pl.pollub.android.powerstrongapp.model.entity.MovementPattern).\n"
                   + " Expected:\n" + _infoMovementPattern + "\n"
                   + " Found:\n" + _existingMovementPattern);
         }
@@ -256,7 +266,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoExerciseTargetMuscleGroup = new TableInfo("exercise_target_muscle_group", _columnsExerciseTargetMuscleGroup, _foreignKeysExerciseTargetMuscleGroup, _indicesExerciseTargetMuscleGroup);
         final TableInfo _existingExerciseTargetMuscleGroup = TableInfo.read(connection, "exercise_target_muscle_group");
         if (!_infoExerciseTargetMuscleGroup.equals(_existingExerciseTargetMuscleGroup)) {
-          return new RoomOpenDelegate.ValidationResult(false, "exercise_target_muscle_group(pl.pollub.android.powerstrongapp.model.ExerciseTargetMuscleGroup).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "exercise_target_muscle_group(pl.pollub.android.powerstrongapp.model.entity.ExerciseTargetMuscleGroup).\n"
                   + " Expected:\n" + _infoExerciseTargetMuscleGroup + "\n"
                   + " Found:\n" + _existingExerciseTargetMuscleGroup);
         }
@@ -268,7 +278,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoTargetMuscleGroup = new TableInfo("target_muscle_group", _columnsTargetMuscleGroup, _foreignKeysTargetMuscleGroup, _indicesTargetMuscleGroup);
         final TableInfo _existingTargetMuscleGroup = TableInfo.read(connection, "target_muscle_group");
         if (!_infoTargetMuscleGroup.equals(_existingTargetMuscleGroup)) {
-          return new RoomOpenDelegate.ValidationResult(false, "target_muscle_group(pl.pollub.android.powerstrongapp.model.TargetMuscleGroup).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "target_muscle_group(pl.pollub.android.powerstrongapp.model.entity.TargetMuscleGroup).\n"
                   + " Expected:\n" + _infoTargetMuscleGroup + "\n"
                   + " Found:\n" + _existingTargetMuscleGroup);
         }
@@ -281,7 +291,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoEffortType = new TableInfo("effort_type", _columnsEffortType, _foreignKeysEffortType, _indicesEffortType);
         final TableInfo _existingEffortType = TableInfo.read(connection, "effort_type");
         if (!_infoEffortType.equals(_existingEffortType)) {
-          return new RoomOpenDelegate.ValidationResult(false, "effort_type(pl.pollub.android.powerstrongapp.model.EffortType).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "effort_type(pl.pollub.android.powerstrongapp.model.entity.EffortType).\n"
                   + " Expected:\n" + _infoEffortType + "\n"
                   + " Found:\n" + _existingEffortType);
         }
@@ -302,7 +312,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoPlannedExercise = new TableInfo("planned_exercise", _columnsPlannedExercise, _foreignKeysPlannedExercise, _indicesPlannedExercise);
         final TableInfo _existingPlannedExercise = TableInfo.read(connection, "planned_exercise");
         if (!_infoPlannedExercise.equals(_existingPlannedExercise)) {
-          return new RoomOpenDelegate.ValidationResult(false, "planned_exercise(pl.pollub.android.powerstrongapp.model.PlannedExercise).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "planned_exercise(pl.pollub.android.powerstrongapp.model.entity.PlannedExercise).\n"
                   + " Expected:\n" + _infoPlannedExercise + "\n"
                   + " Found:\n" + _existingPlannedExercise);
         }
@@ -322,7 +332,7 @@ public final class AppDatabase_Impl extends AppDatabase {
         final TableInfo _infoExecutedSet = new TableInfo("executed_set", _columnsExecutedSet, _foreignKeysExecutedSet, _indicesExecutedSet);
         final TableInfo _existingExecutedSet = TableInfo.read(connection, "executed_set");
         if (!_infoExecutedSet.equals(_existingExecutedSet)) {
-          return new RoomOpenDelegate.ValidationResult(false, "executed_set(pl.pollub.android.powerstrongapp.model.ExecutedSet).\n"
+          return new RoomOpenDelegate.ValidationResult(false, "executed_set(pl.pollub.android.powerstrongapp.model.entity.ExecutedSet).\n"
                   + " Expected:\n" + _infoExecutedSet + "\n"
                   + " Found:\n" + _existingExecutedSet);
         }

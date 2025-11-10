@@ -15,6 +15,10 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.processing.Generated;
 
+import pl.pollub.android.powerstrongapp.model.dao.MovementPatternDao;
+import pl.pollub.android.powerstrongapp.model.entity.Exercise;
+import pl.pollub.android.powerstrongapp.model.entity.MovementPattern;
+
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation", "removal"})
 public final class MovementPatternDao_Impl implements MovementPatternDao {

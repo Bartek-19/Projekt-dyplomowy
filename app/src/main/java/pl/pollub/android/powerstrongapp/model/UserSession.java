@@ -1,5 +1,7 @@
 package pl.pollub.android.powerstrongapp.model;
 
+import pl.pollub.android.powerstrongapp.model.entity.User;
+
 public class UserSession {
     private static UserSession instance;
     private User currentUser;

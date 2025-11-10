@@ -22,6 +22,12 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.processing.Generated;
 import kotlin.Unit;
+import pl.pollub.android.powerstrongapp.model.dao.ExerciseDao;
+import pl.pollub.android.powerstrongapp.model.entity.Exercise;
+import pl.pollub.android.powerstrongapp.model.entity.ExerciseCategory;
+import pl.pollub.android.powerstrongapp.model.entity.ExerciseHasMovementPattern;
+import pl.pollub.android.powerstrongapp.model.entity.ExerciseTargetMuscleGroup;
+import pl.pollub.android.powerstrongapp.model.relations.ExerciseWithDetails;
 
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation", "removal"})

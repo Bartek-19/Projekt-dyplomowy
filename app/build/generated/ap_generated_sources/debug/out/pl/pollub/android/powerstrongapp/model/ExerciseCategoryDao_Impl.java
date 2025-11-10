@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import javax.annotation.processing.Generated;
 
+import pl.pollub.android.powerstrongapp.model.dao.ExerciseCategoryDao;
+import pl.pollub.android.powerstrongapp.model.entity.ExerciseCategory;
+
 @Generated("androidx.room.RoomProcessor")
 @SuppressWarnings({"unchecked", "deprecation", "removal"})
 public final class ExerciseCategoryDao_Impl implements ExerciseCategoryDao {

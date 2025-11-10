@@ -2,6 +2,9 @@ package pl.pollub.android.powerstrongapp.model;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+
+import pl.pollub.android.powerstrongapp.utils.DateConverter;
 
 @Database(
         entities = {
@@ -22,6 +25,7 @@ import androidx.room.RoomDatabase;
         },
         version = 1
 )
+@TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract TrainingPlanDao trainingPlanDao();

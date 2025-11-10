@@ -4,7 +4,7 @@
             "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-43:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\6602e24f51c0670c08bf4026a8378e10\\transformed\\material-1.13.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\2463832d39a9279a7f12b919309549a8\\transformed\\material-1.13.0\\res\\values-h320dp-port-v13\\values-h320dp-port-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

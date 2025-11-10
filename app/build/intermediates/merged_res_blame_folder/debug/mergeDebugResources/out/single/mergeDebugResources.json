@@ -32,10 +32,6 @@
         "source": "pl.pollub.android.powerstrongapp-main-47:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-45:/navigation_nav_graph.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-47:/navigation/nav_graph.xml"
-    },
-    {
         "merged": "pl.pollub.android.powerstrongapp-debug-45:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
         "source": "pl.pollub.android.powerstrongapp-main-47:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },

@@ -5,8 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="31"
+        android:minSdkVersion="26"
         android:targetSdkVersion="35" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <permission
         android:name="pl.pollub.android.powerstrongapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -15,6 +18,7 @@
     <uses-permission android:name="pl.pollub.android.powerstrongapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
+        android:name="pl.pollub.android.powerstrongapp.App"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -26,7 +30,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true"
-        android:theme="@style/Theme.PowerStrongApp" >
+        android:theme="@style/Theme.PowerStrongApp"
+        android:usesCleartextTraffic="true" >
         <activity
             android:name="pl.pollub.android.powerstrongapp.MainActivity"
             android:exported="true" >
@@ -56,6 +61,13 @@
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
                 android:value="androidx.startup" />
         </provider>
+
+        <uses-library
+            android:name="androidx.window.extensions"
+            android:required="false" />
+        <uses-library
+            android:name="androidx.window.sidecar"
+            android:required="false" />
 
         <receiver
             android:name="androidx.profileinstaller.ProfileInstallReceiver"

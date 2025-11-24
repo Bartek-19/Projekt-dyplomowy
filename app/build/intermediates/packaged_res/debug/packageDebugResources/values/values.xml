@@ -1,11 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <string name="app_name">PowerStrongApp</string>
-    <style name="Base.Theme.PowerStrongApp" parent="Theme.Material3.DayNight.NoActionBar">
-        
-        
+    <color name="black">#000000</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#121212</color>
+    <color name="md_theme_dark_background">@color/grey_900</color>
+    <color name="md_theme_dark_onPrimary">@color/black</color>
+    <color name="md_theme_dark_onSecondary">@color/black</color>
+    <color name="md_theme_dark_onSurface">@color/grey_50</color>
+    <color name="md_theme_dark_onSurfaceVariant">@color/grey_100</color>
+    <color name="md_theme_dark_primary">@color/orange_500</color>
+    <color name="md_theme_dark_secondary">@color/teal_200</color>
+    <color name="md_theme_dark_surface">@color/grey_800</color>
+    <color name="md_theme_light_background">@color/grey_100</color>
+    <color name="md_theme_light_onPrimary">@color/white</color>
+    <color name="md_theme_light_onSecondary">@color/white</color>
+    <color name="md_theme_light_onSurface">@color/grey_900</color>
+    <color name="md_theme_light_onSurfaceVariant">@color/grey_800</color>
+    <color name="md_theme_light_primary">@color/orange_900</color>
+    <color name="md_theme_light_secondary">@color/teal_700</color>
+    <color name="md_theme_light_surface">@color/white</color>
+    <color name="orange_200">#FFCC80</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="orange_700">#F57C00</color>
+    <color name="orange_900">#E65100</color>
+    <color name="stat_blue">#42A5F5</color>
+    <color name="stat_green">#66BB6A</color>
+    <color name="stat_red">#EF5350</color>
+    <color name="teal_200">#80CBC4</color>
+    <color name="teal_500">#009688</color>
+    <color name="teal_700">#00796B</color>
+    <color name="white">#FFFFFF</color>
+    <string name="add_plan_icon">Add plan</string>
+    <string name="app_name" translatable="false">PowerStrong</string>
+    <string name="calendar_icon">Calendar</string>
+    <string name="choose_or_create_plan">Pick a preset plan or make a custom one</string>
+    <string name="continue_training">CONTINUE TRAINING</string>
+    <string name="day_number">"Day %1$d "</string>
+    <string name="email_hint">Email address</string>
+    <string name="error_empty_fields">Enter login and password</string>
+    <string name="error_invalid_credentials">Invalid login or password!</string>
+    <string name="error_network">Can\'t connect to server: %s</string>
+    <string name="error_server">Server error: %d</string>
+    <string name="exercises_remaining">%1$d exercises remaining</string>
+    <string name="exercises_remaining_many">%1$d exercises remaining</string>
+    <string name="exercises_remaining_single">Only 1 exercise left</string>
+    <string name="greeting_hello">Hello, %1$s!</string>
+    <string name="last_pr_label">Last PR</string>
+    <string name="last_pr_weight" translatable="false">%1$dkg</string>
+    <string name="login_button_label">LOG IN</string>
+    <string name="login_subtitle">Your powerlifting partner</string>
+    <string name="nav_home">Main</string>
+    <string name="nav_plans">Plans</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_settings">Settings</string>
+    <string name="next_training">Next training:</string>
+    <string name="next_training_date">Next training: %1$s</string>
+    <string name="no_active_plan">No active plan</string>
+    <string name="notification_icon">Notifications</string>
+    <string name="password_hint">Password</string>
+    <string name="plan_progress_days">Day %1$d/%2$d</string>
+    <string name="plan_progress_format">Training %1$d out of %2$d (%3$d%%)</string>
+    <string name="plan_progress_title">Training plan progress</string>
+    <string name="profile_icon">User profile</string>
+    <string name="register_action_button">Register</string>
+    <string name="register_button_label">Don\'t have an account? REGISTER</string>
+    <string name="register_failed">Registration error (code: %d)</string>
+    <string name="register_success">Account created! Log in</string>
+    <string name="register_title">Create an account</string>
+    <string name="start_training">BEGIN TRAINING</string>
+    <string name="start_training_plan">Begin a training plan</string>
+    <string name="streak_days" translatable="false">%1$d 🔥</string>
+    <string name="streak_label">Day streak</string>
+    <string name="sugg_bodyweight">Bodyweight (RPE %1$s)</string>
+    <string name="sugg_find_max">Find weight for %1$d reps</string>
+    <string name="sugg_percent">Intensity: %1$d%% 1RM</string>
+    <string name="sugg_rpe">RPE %1$s (Leave %2$d reps in reserve)</string>
+    <string name="sugg_unknown">Check description</string>
+    <string name="trainings_count" translatable="false">%1$d/%2$d</string>
+    <string name="trainings_label">Trainings</string>
+    <string name="username_hint">Username</string>
+    <string name="weight_kg" translatable="false">%1$s kg</string>
+    <string name="your_stats">Your stats</string>
+    <style name="CalendarDayHeader">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textSize">12sp</item>
     </style>
-    <style name="Theme.PowerStrongApp" parent="Base.Theme.PowerStrongApp"/>
+    <style name="TextAppearance.PowerStrong.Header" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item> </style>
+    <style name="TextAppearance.PowerStrong.Subtitle" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item> </style>
+    <style name="Theme.PowerStrongApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+
+        <item name="android:windowBackground">@color/md_theme_light_background</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>

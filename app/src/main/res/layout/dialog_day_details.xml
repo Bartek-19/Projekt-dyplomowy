@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvDialogDayTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Szczegóły dnia"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#009688"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/tvDialogDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginBottom="16dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginBottom="16dp"/>
+
+    <LinearLayout
+        android:id="@+id/dialogExercisesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:minHeight="50dp">
+
+        <ProgressBar
+            android:id="@+id/dialogLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvDialogEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Brak zaplanowanych ćwiczeń."
+            android:gravity="center"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCloseDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zamknij"
+        android:layout_marginTop="24dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+</LinearLayout>

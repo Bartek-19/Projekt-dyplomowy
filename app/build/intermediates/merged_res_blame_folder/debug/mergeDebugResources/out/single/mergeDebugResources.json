@@ -1,70 +1,170 @@
 [
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_fragment_login.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\fragment_login.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_dialog_plan_details.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\dialog_plan_details.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/drawable/ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\drawable_dialog_background.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\drawable\\dialog_background.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_dialog_add_day.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\dialog_add_day.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/xml_data_extraction_rules.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/xml/data_extraction_rules.xml"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-xhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_item_exercise.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\item_exercise.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-anydpi_ic_launcher_round.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-anydpi/ic_launcher_round.xml"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/xml_backup_rules.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/xml/backup_rules.xml"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-xxxhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/layout_activity_main.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/layout/activity_main.xml"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_fragment_plan_list.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\fragment_plan_list.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-anydpi\\ic_launcher.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-anydpi_ic_launcher.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-anydpi/ic_launcher.xml"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_fragment_profile.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\fragment_profile.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\activity_main.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/drawable_ic_launcher_background.xml.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/drawable/ic_launcher_background.xml"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\drawable\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_item_plan.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\item_plan.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_dialog_plan_completion.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\dialog_plan_completion.xml"
     },
     {
-        "merged": "pl.pollub.android.powerstrongapp-debug-32:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "pl.pollub.android.powerstrongapp-main-34:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_item_day_card.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\item_day_card.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_dialog_day_details.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\dialog_day_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_item_calendar_day.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\item_calendar_day.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_fragment_workout.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\fragment_workout.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_fragment_register.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\fragment_register.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_item_exercise_row.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\item_exercise_row.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_bottom_sheet_plan_details.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\bottom_sheet_plan_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_fragment_active_plan.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\fragment_active_plan.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\drawable_bg_day_inactive.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\drawable\\bg_day_inactive.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\drawable_training_button_background.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\drawable\\training_button_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\mipmap-anydpi_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\mipmap-anydpi\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\drawable_bg_day_active.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\drawable\\bg_day_active.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_dialog_create_plan_wizard.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\dialog_create_plan_wizard.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-debug-45:/layout_fragment_home.xml.flat",
+        "source": "pl.pollub.android.powerstrongapp-main-47:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\layout_dialog_add_exercise.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\layout\\dialog_add_exercise.xml"
+    },
+    {
+        "merged": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-debug-45:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\theka\\.gradle\\daemon\\8.14.3\\pl.pollub.android.powerstrongapp-main-47:\\xml\\data_extraction_rules.xml"
     }
 ]

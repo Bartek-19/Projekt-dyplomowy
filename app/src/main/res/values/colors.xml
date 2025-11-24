@@ -1,5 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="orange_200">#FFCC80</color>
+    <color name="orange_500">#FF9800</color>
+    <color name="orange_700">#F57C00</color>
+    <color name="orange_900">#E65100</color>
+
+    <color name="teal_200">#80CBC4</color>
+    <color name="teal_500">#009688</color>
+    <color name="teal_700">#00796B</color>
+
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#121212</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="stat_green">#66BB6A</color>
+    <color name="stat_blue">#42A5F5</color>
+    <color name="stat_red">#EF5350</color>
+
+    <color name="md_theme_light_primary">@color/orange_900</color>
+    <color name="md_theme_light_onPrimary">@color/white</color>
+
+    <color name="md_theme_light_secondary">@color/teal_700</color>
+    <color name="md_theme_light_onSecondary">@color/white</color>
+
+    <color name="md_theme_light_background">@color/grey_100</color>
+    <color name="md_theme_light_surface">@color/white</color>
+    <color name="md_theme_light_onSurface">@color/grey_900</color>
+    <color name="md_theme_light_onSurfaceVariant">@color/grey_800</color>
+
+    <color name="md_theme_dark_primary">@color/orange_500</color>
+    <color name="md_theme_dark_onPrimary">@color/black</color>
+
+    <color name="md_theme_dark_secondary">@color/teal_200</color>
+    <color name="md_theme_dark_onSecondary">@color/black</color>
+
+    <color name="md_theme_dark_background">@color/grey_900</color>
+    <color name="md_theme_dark_surface">@color/grey_800</color>
+    <color name="md_theme_dark_onSurface">@color/grey_50</color>
+    <color name="md_theme_dark_onSurfaceVariant">@color/grey_100</color>
+
 </resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="pl.pollub.android.powerstrongapp.ui.auth.LoginFragment"
+        android:label="Logowanie"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="pl.pollub.android.powerstrongapp.ui.auth.RegisterFragment"
+        android:label="Rejestracja"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="pl.pollub.android.powerstrongapp.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_workoutFragment"
+            app:destination="@id/workoutFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_plans"
+            app:destination="@id/nav_plans" />
+        <action
+            android:id="@+id/action_nav_home_to_active_plan"
+            app:destination="@id/nav_active_plan" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_profile"
+            app:destination="@id/nav_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_plans"
+        android:name="pl.pollub.android.powerstrongapp.ui.plan_list.PlanListFragment"
+        android:label="Wybierz Plan">
+        <action
+            android:id="@+id/action_nav_plans_to_nav_home"
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_active_plan"
+        android:name="pl.pollub.android.powerstrongapp.ui.plan_active.ActivePlanFragment"
+        android:label="Mój Plan"
+        tools:layout="@layout/fragment_active_plan" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="pl.pollub.android.powerstrongapp.ui.profile.ProfileFragment"
+        android:label="Profil">
+        <action
+            android:id="@+id/action_nav_profile_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/workoutFragment"
+        android:name="pl.pollub.android.powerstrongapp.ui.workout.WorkoutFragment"
+        android:label="fragment_workout" />
+
+</navigation>

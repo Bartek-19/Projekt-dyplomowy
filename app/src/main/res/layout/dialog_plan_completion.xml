@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gratulacje!"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#009688"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ukończyłeś cały plan treningowy. Wypełnij krótką ankietę podsumowującą (opcjonalne)."
+            android:gravity="center"
+            android:layout_marginBottom="24dp"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbNutrition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Czy pilnowałeś/aś diety?"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/cbSleep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Czy dbałeś/aś o sen?"/>
+
+        <LinearLayout
+            android:id="@+id/sleepHoursContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Średnia ilość snu (godziny):"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/etSleepHours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:hint="np. 7.5"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Twoja ocena planu (1-10):"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <SeekBar
+                android:id="@+id/sbRating"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="9"
+                android:progress="7"/>
+            <TextView
+                android:id="@+id/tvRatingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8/10"
+                android:textSize="16sp"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSubmitCompletion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zakończ Plan"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#009688"/>
+
+    </LinearLayout>
+</ScrollView>

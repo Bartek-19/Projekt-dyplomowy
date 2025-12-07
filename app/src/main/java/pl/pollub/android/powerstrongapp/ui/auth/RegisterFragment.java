@@ -50,11 +50,9 @@ public class RegisterFragment extends Fragment {
 
         setLoading(true);
 
-        // Tworzymy obiekt żądania rejestracji
         RegisterRequest request = new RegisterRequest(username, email, password);
         UserService service = RetrofitClient.getUserService(requireContext());
 
-        // Wysyłamy do API
         service.register(request).enqueue(new Callback<UserDto>() {
             @Override
             public void onResponse(Call<UserDto> call, Response<UserDto> response) {
@@ -63,7 +61,6 @@ public class RegisterFragment extends Fragment {
 
                 if (response.isSuccessful()) {
                     Toast.makeText(requireContext(), getString(R.string.register_success), Toast.LENGTH_LONG).show();
-                    // Wracamy do ekranu logowania
                     Navigation.findNavController(requireView()).navigateUp();
                 } else {
                     Toast.makeText(requireContext(), getString(R.string.register_failed, response.code()), Toast.LENGTH_LONG).show();

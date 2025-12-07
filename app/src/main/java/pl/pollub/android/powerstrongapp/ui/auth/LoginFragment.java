@@ -25,14 +25,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
-
-    // Używamy Bindingu, aby nie robić findViewById
     private FragmentLoginBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inicjalizacja Bindingu
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -40,30 +37,22 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Sprawdzenie, czy użytkownik jest już zalogowany
         if (AuthManager.getInstance(requireContext()).isUserLoggedIn()) {
             navigateToHome();
             return;
         }
-
-        // Obsługa kliknięć przez binding
         binding.btnLogin.setOnClickListener(v -> attemptLogin());
-
         binding.btnRegister.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(requireView());
-            // Upewnij się, że masz akcję w nav_graph.xml (id: action_loginFragment_to_registerFragment)
             navController.navigate(R.id.action_loginFragment_to_registerFragment);
         });
     }
 
     private void attemptLogin() {
-        // Pobieranie tekstu z pól edycyjnych przez binding
         String username = binding.etUsername.getText().toString().trim();
         String password = binding.etPassword.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            // Używamy tekstu z strings.xml
             showToast(getString(R.string.error_empty_fields));
             return;
         }
@@ -108,7 +97,6 @@ public class LoginFragment extends Fragment {
 
     private void navigateToHome() {
         NavController navController = Navigation.findNavController(requireView());
-        // Dodaj flagi w nav_graph (popBehavior), aby cofnięcie nie wracało do logowania!
         navController.navigate(R.id.action_loginFragment_to_homeFragment);
     }
 
@@ -127,7 +115,6 @@ public class LoginFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Czyszczenie referencji do bindingu (ważne w Fragmentach)
         binding = null;
     }
 }

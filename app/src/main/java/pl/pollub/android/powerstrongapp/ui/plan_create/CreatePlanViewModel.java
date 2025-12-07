@@ -1,5 +1,8 @@
 package pl.pollub.android.powerstrongapp.ui.plan_create;
 
+import android.app.Application; // Import Application
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel; // Zmiana z ViewModel na AndroidViewModel
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import pl.pollub.android.powerstrongapp.R;
 import pl.pollub.android.powerstrongapp.api.model.PlannedExerciseDto;
 import pl.pollub.android.powerstrongapp.api.model.TrainingDayDto;
 import pl.pollub.android.powerstrongapp.api.model.TrainingPlanFullDto;
@@ -21,13 +25,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreatePlanViewModel extends ViewModel {
+public class CreatePlanViewModel extends AndroidViewModel {
 
     private final PlanRepository planRepository;
     private final ReferenceRepository referenceRepository;
     private final TrainingPlanFullDto tempPlan = new TrainingPlanFullDto();
 
-    // Stan
     private final MutableLiveData<Integer> _weeksCount = new MutableLiveData<>(1);
     public LiveData<Integer> weeksCount = _weeksCount;
 
@@ -40,13 +43,13 @@ public class CreatePlanViewModel extends ViewModel {
     private final MutableLiveData<String> _error = new MutableLiveData<>();
     public LiveData<String> getError() { return _error; }
 
-    public CreatePlanViewModel(PlanRepository pRepo, ReferenceRepository rRepo) {
+    public CreatePlanViewModel(@NonNull Application application, PlanRepository pRepo, ReferenceRepository rRepo) {
+        super(application);
         this.planRepository = pRepo;
         this.referenceRepository = rRepo;
         tempPlan.setTrainingDays(new ArrayList<>());
     }
 
-    // --- POBIERANIE DANYCH ---
     public LiveData<List<ExerciseEntity>> getAvailableExercises() {
         return referenceRepository.getAllExercises();
     }
@@ -57,9 +60,6 @@ public class CreatePlanViewModel extends ViewModel {
     public int getPlanDuration() {
         return tempPlan.getDurationOfCycle();
     }
-
-    // --- LOGIKA PLANU (Wizarda) ---
-    // Logika edycji listy _days pozostaje w ViewModelu, bo to stan tymczasowy UI
 
     public void setBasicInfo(String name, int durationWeeks, int methodId) {
         tempPlan.setName(name);
@@ -76,7 +76,7 @@ public class CreatePlanViewModel extends ViewModel {
         if (current < tempPlan.getDurationOfCycle()) {
             _weeksCount.setValue(current + 1);
         } else {
-            _error.setValue("Osiągnięto limit długości planu (" + tempPlan.getDurationOfCycle() + " tyg.)");
+            _error.setValue(getApplication().getString(R.string.error_limit_reached, tempPlan.getDurationOfCycle()));
         }
     }
 
@@ -126,7 +126,7 @@ public class CreatePlanViewModel extends ViewModel {
     public void addDayToWeek(int weekNumber, int dayCycleIndex) {
         TrainingDayDto day = new TrainingDayDto();
         day.setWeekNumber(weekNumber);
-        day.setDayName("Dzień " + dayCycleIndex);
+        day.setDayName(getApplication().getString(R.string.day_x_label, dayCycleIndex));
         day.setPlannedExercises(new ArrayList<>());
         int absoluteOrder = ((weekNumber - 1) * 7) + dayCycleIndex;
         day.setDayOrder(absoluteOrder);
@@ -170,7 +170,7 @@ public class CreatePlanViewModel extends ViewModel {
 
     public void savePlan(String startDate) {
         if (tempPlan.getName() == null || tempPlan.getName().isEmpty()) {
-            _error.setValue("Błąd: Brak nazwy planu");
+            _error.setValue(getApplication().getString(R.string.error_no_name));
             return;
         }
         List<TrainingDayDto> cleanedDays = new ArrayList<>();
@@ -183,7 +183,7 @@ public class CreatePlanViewModel extends ViewModel {
             }
         }
         if (cleanedDays.isEmpty()) {
-            _error.setValue("Błąd: Plan musi zawierać przynajmniej jeden dzień z ćwiczeniami!");
+            _error.setValue(getApplication().getString(R.string.error_no_exercises_in_plan));
             return;
         }
         tempPlan.setTrainingDays(cleanedDays);
@@ -196,25 +196,26 @@ public class CreatePlanViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     _saveSuccess.setValue(true);
                 } else {
-                    _error.setValue("Błąd serwera: " + response.code());
+                    _error.setValue(getApplication().getString(R.string.error_server_code, String.valueOf(response.code())));
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                _error.setValue("Błąd sieci: " + t.getMessage());
+                _error.setValue(getApplication().getString(R.string.error_network_detailed, t.getMessage()));
             }
         });
     }
 
     public static class Factory implements ViewModelProvider.Factory {
+        private final Application application;
         private final PlanRepository pRepo;
         private final ReferenceRepository rRepo;
-        public Factory(PlanRepository p, ReferenceRepository r) {
-            this.pRepo = p; this.rRepo = r;
+        public Factory(Application app, PlanRepository p, ReferenceRepository r) {
+            this.application = app; this.pRepo = p; this.rRepo = r;
         }
         @Override public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new CreatePlanViewModel(pRepo, rRepo);
+            return (T) new CreatePlanViewModel(application, pRepo, rRepo);
         }
     }
 }

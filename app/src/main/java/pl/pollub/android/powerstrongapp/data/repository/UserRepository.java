@@ -117,7 +117,6 @@ public class UserRepository {
             public void onResponse(Call<List<TrainingPlanFullDto>> call, Response<List<TrainingPlanFullDto>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     AppDatabase.databaseWriteExecutor.execute(() -> {
-                        // Mapujemy DTO na Encje
                         List<TrainingPlanFullDto> dtos = response.body();
 
                         for (TrainingPlanFullDto dto : dtos) {

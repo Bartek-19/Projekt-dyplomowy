@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import pl.pollub.android.powerstrongapp.App;
@@ -80,16 +81,18 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         App app = App.getInstance();
-        viewModel = new ViewModelProvider(this, new CreatePlanViewModel.Factory(
+
+        CreatePlanViewModel.Factory factory = new CreatePlanViewModel.Factory(
+                app,
                 app.getPlanRepository(),
                 app.getReferenceRepository()
-        )).get(CreatePlanViewModel.class);
+        );
+        viewModel = new ViewModelProvider(this, factory).get(CreatePlanViewModel.class);
 
         setupStep1();
         setupNavigation();
         setupObservers();
 
-        // Inicjalizacja stanu UI (ustawi przycisk na "Anuluj" i włączy go)
         goToStep(0);
     }
 
@@ -97,7 +100,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         binding.sbDuration.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                binding.tvDurationLabel.setText(progress + " tygodni");
+                binding.tvDurationLabel.setText(getString(R.string.weeks_format, progress));
             }
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override public void onStopTrackingTouch(SeekBar seekBar) {}
@@ -114,10 +117,10 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
                 if (method != null) {
                     if (method.getDurationOfCycle() > 0) {
                         binding.sbDuration.setVisibility(View.GONE);
-                        binding.tvDurationLabel.setText(method.getDurationOfCycle() + " tygodni (cykl stały)");
+                        binding.tvDurationLabel.setText(getString(R.string.weeks_format_fixed, method.getDurationOfCycle()));
                     } else {
                         binding.sbDuration.setVisibility(View.VISIBLE);
-                        binding.tvDurationLabel.setText(binding.sbDuration.getProgress() + " tygodni");
+                        binding.tvDurationLabel.setText(getString(R.string.weeks_format, binding.sbDuration.getProgress()));
                     }
                 }
             }
@@ -129,12 +132,9 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         viewModel.getAvailableTrainingMethods().observe(getViewLifecycleOwner(), methods -> {
             if (methods != null) {
                 adapter.clear();
-
-                // ZMIANA: Filtrowanie metody testowej (teraz ignorujemy ID = 1)
                 List<TrainingMethodEntity> filteredMethods = methods.stream()
                         .filter(m -> m.getId() != 1)
                         .collect(Collectors.toList());
-
                 adapter.addAll(filteredMethods);
                 adapter.notifyDataSetChanged();
             }
@@ -145,12 +145,12 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         binding.btnNext.setOnClickListener(v -> {
             if (currentStep == 0) {
                 if (binding.etPlanName.getText().toString().isEmpty()) {
-                    binding.etPlanName.setError("Wymagane");
+                    binding.etPlanName.setError(getString(R.string.error_required));
                     return;
                 }
                 TrainingMethodEntity selectedMethod = (TrainingMethodEntity) binding.spTrainingMethod.getSelectedItem();
                 if (selectedMethod == null) {
-                    Toast.makeText(requireContext(), "Wybierz metodę treningową", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.error_select_method, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -170,7 +170,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
 
             } else if (currentStep == 1) {
                 if (viewModel.getDaysList().isEmpty()) {
-                    Toast.makeText(requireContext(), "Plan jest pusty! Dodaj dni.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.error_empty_plan, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 boolean anyValidDay = false;
@@ -180,7 +180,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
                     }
                 }
                 if (!anyValidDay) {
-                    Toast.makeText(requireContext(), "Przynajmniej jeden dzień musi mieć dodane ćwiczenia!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.error_day_no_exercises, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -194,7 +194,6 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
 
         binding.btnBack.setOnClickListener(v -> {
             if (currentStep == 0) {
-                // To wywołuje się, gdy przycisk ma napis "Anuluj"
                 dismiss();
             } else {
                 goToStep(currentStep - 1);
@@ -213,12 +212,12 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         android.app.DatePickerDialog datePickerDialog = new android.app.DatePickerDialog(
                 requireContext(),
                 (view, year1, monthOfYear, dayOfMonth) -> {
-                    String dateToSend = String.format(java.util.Locale.US, "%d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth);
+                    String dateToSend = String.format(Locale.US, "%d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth);
                     viewModel.savePlan(dateToSend);
                 },
                 year, month, day);
 
-        datePickerDialog.setMessage("Kiedy chcesz rozpocząć ten plan?");
+        datePickerDialog.setMessage(getString(R.string.pick_start_date_title));
         datePickerDialog.show();
     }
 
@@ -228,13 +227,11 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
 
         binding.btnBack.setEnabled(true);
         if (step == 0) {
-            // Tutaj ustawiamy napis na Anuluj dla pierwszego kroku
-            binding.btnBack.setText("Anuluj");
+            binding.btnBack.setText(R.string.cancel);
         } else {
-            binding.btnBack.setText("Wstecz");
+            binding.btnBack.setText(R.string.back);
         }
 
-        // ZARZĄDZANIE WIDOCZNOŚCIĄ PRZYCISKU DODAWANIA TYGODNIA
         if (step == 1) {
             int currentWeeks = viewModel.weeksCount.getValue() != null ? viewModel.weeksCount.getValue() : 1;
             int maxWeeks = viewModel.getPlanDuration();
@@ -249,9 +246,18 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         }
 
         switch (step) {
-            case 0: binding.tvStepTitle.setText("Krok 1: Podstawy"); binding.btnNext.setText("Dalej"); break;
-            case 1: binding.tvStepTitle.setText("Krok 2: Struktura Planu"); binding.btnNext.setText("Dalej"); break;
-            case 2: binding.tvStepTitle.setText("Krok 3: Podsumowanie"); binding.btnNext.setText("Zapisz i Rozpocznij"); break;
+            case 0:
+                binding.tvStepTitle.setText(R.string.step_1_title);
+                binding.btnNext.setText(R.string.next);
+                break;
+            case 1:
+                binding.tvStepTitle.setText(R.string.step_2_title);
+                binding.btnNext.setText(R.string.next);
+                break;
+            case 2:
+                binding.tvStepTitle.setText(R.string.step_3_title);
+                binding.btnNext.setText(R.string.save_and_start);
+                break;
         }
     }
 
@@ -263,7 +269,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         });
         viewModel.saveSuccess.observe(getViewLifecycleOwner(), success -> {
             if (Boolean.TRUE.equals(success)) {
-                Toast.makeText(requireContext(), "Plan utworzony!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.plan_created, Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
@@ -284,7 +290,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
             headerContainer.setPadding(0, 24, 0, 16);
 
             TextView weekHeader = new TextView(requireContext());
-            weekHeader.setText("TYDZIEŃ " + w);
+            weekHeader.setText(getString(R.string.week_n, w));
             weekHeader.setTextSize(16);
             weekHeader.setTextColor(colorOnSurface);
             weekHeader.setTypeface(null, Typeface.BOLD);
@@ -292,7 +298,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
 
             if (totalWeeks > 1) {
                 TextView btnDeleteWeek = new TextView(requireContext());
-                btnDeleteWeek.setText("Usuń");
+                btnDeleteWeek.setText(R.string.remove);
                 btnDeleteWeek.setTextColor(Color.RED);
                 btnDeleteWeek.setTextSize(12);
                 btnDeleteWeek.setPadding(16, 8, 16, 8);
@@ -320,10 +326,10 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
     private void confirmRemoveWeek(int weekNumber) {
         if (!viewModel.isWeekEmpty(weekNumber)) {
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Usunąć Tydzień " + weekNumber + "?")
-                    .setMessage("Ten tydzień zawiera dni treningowe. Czy na pewno chcesz go usunąć?")
-                    .setPositiveButton("Usuń", (d, w) -> viewModel.removeWeek(weekNumber))
-                    .setNegativeButton("Anuluj", null)
+                    .setTitle(getString(R.string.remove_week_title, weekNumber))
+                    .setMessage(R.string.remove_week_message)
+                    .setPositiveButton(R.string.remove, (d, w) -> viewModel.removeWeek(weekNumber))
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
         } else {
             viewModel.removeWeek(weekNumber);
@@ -374,10 +380,10 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
             TrainingDayDto day = viewModel.getDay(weekNumber, dayIndex);
             if (day != null && day.getPlannedExercises() != null && !day.getPlannedExercises().isEmpty()) {
                 new AlertDialog.Builder(requireContext())
-                        .setTitle("Usunąć dzień " + dayIndex + "?")
-                        .setMessage("Zawiera ćwiczenia. Czy na pewno?")
-                        .setPositiveButton("Usuń", (d, w) -> viewModel.removeDay(weekNumber, dayIndex))
-                        .setNegativeButton("Anuluj", null)
+                        .setTitle(getString(R.string.remove_day_title, dayIndex))
+                        .setMessage(R.string.remove_day_message)
+                        .setPositiveButton(R.string.remove, (d, w) -> viewModel.removeDay(weekNumber, dayIndex))
+                        .setNegativeButton(R.string.cancel, null)
                         .show();
             } else {
                 viewModel.removeDay(weekNumber, dayIndex);
@@ -443,7 +449,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
             }
         } else {
             TextView empty = new TextView(requireContext());
-            empty.setText("Brak ćwiczeń");
+            empty.setText(R.string.no_exercises);
             empty.setTextSize(12);
             empty.setTextColor(colorVariant);
             empty.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -451,7 +457,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         }
 
         Button btnAdd = new Button(requireContext());
-        btnAdd.setText("+ Dodaj Ćwiczenie");
+        btnAdd.setText(R.string.add_exercise_btn);
         btnAdd.setTextSize(12);
         btnAdd.setBackgroundColor(Color.TRANSPARENT);
         btnAdd.setTextColor(colorPrimary);
@@ -480,7 +486,6 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
         exerciseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         exBinding.spExercise.setAdapter(exerciseAdapter);
 
-        // Ładowanie ćwiczeń
         viewModel.getAvailableExercises().observe(getViewLifecycleOwner(), exercises -> {
             if (exercises != null) {
                 exerciseAdapter.clear();
@@ -489,24 +494,20 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
             }
         });
 
-        // NOWOŚĆ: Reakcja na zmianę ćwiczenia
         exBinding.spExercise.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ExerciseEntity selected = (ExerciseEntity) parent.getItemAtPosition(position);
-
                 if (selected != null && selected.isBodyweight()) {
                     exBinding.spEffortType.setEnabled(false);
                 } else {
                     exBinding.spEffortType.setEnabled(true);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        builder.setPositiveButton("Dodaj", (d, w) -> {
+        builder.setPositiveButton(R.string.add_btn, (d, w) -> {
             ExerciseEntity selectedExercise = (ExerciseEntity) exBinding.spExercise.getSelectedItem();
             if (selectedExercise == null) return;
 
@@ -515,7 +516,7 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
                 String repsStr = exBinding.etReps.getText().toString();
 
                 if (setsStr.isEmpty() || repsStr.isEmpty()) {
-                    Toast.makeText(requireContext(), "Wypełnij serie i powtórzenia", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.fill_sets_reps, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -528,37 +529,33 @@ public class CreatePlanWizardDialogFragment extends DialogFragment {
                 dto.setPlannedSets(sets);
                 dto.setPlannedReps(reps);
 
-                // LOGIKA BODYWEIGHT PRZY TWORZENIU
                 if (selectedExercise.isBodyweight()) {
-                    // Kluczowe: ustawiamy typ sugestii na BODYWEIGHT
                     dto.setSuggestionType("BODYWEIGHT");
                     dto.setSuggestionValue(0.0);
-                    dto.setEffortType("Bodyweight"); // Opcjonalnie nadpisujemy typ wysiłku
+                    dto.setEffortType("Bodyweight");
                     dto.setTargetWeight(null);
                 } else {
-                    // Standardowa logika dla ciężarów
                     dto.setSuggestionType("RPE");
                     dto.setSuggestionValue(8.0);
                     dto.setEffortType((String) exBinding.spEffortType.getSelectedItem());
-                    dto.setTargetWeight(null); // Ciężar i tak wyliczy serwer/algorytm
+                    dto.setTargetWeight(null);
                 }
 
                 viewModel.addExerciseToDay(day, dto);
 
             } catch (Exception e) {
-                Toast.makeText(requireContext(), "Błąd danych: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), getString(R.string.data_error, e.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Anuluj", null);
+        builder.setNegativeButton(R.string.cancel, null);
         builder.show();
     }
 
     private void generateSummary() {
         TrainingPlanFullDto p = viewModel.getPlanSummary();
-        String summary = "Nazwa: " + p.getName() + "\n" +
-                "Długość: " + p.getDurationOfCycle() + " tyg.\n" +
-                "Liczba dni: " + p.getTrainingDays().size();
+        String summary = getString(R.string.summary_format,
+                p.getName(), p.getDurationOfCycle(), p.getTrainingDays().size());
         binding.tvSummary.setText(summary);
     }
 

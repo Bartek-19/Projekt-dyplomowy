@@ -21,12 +21,10 @@ public class Converters {
         }
         throw new IllegalArgumentException("Nieznany kod statusu: " + value);
     }
-
     @TypeConverter
     public static Integer fromSyncStatus(SyncStatus status) {
         return status == null ? null : status.getCode();
     }
-    // Zapis: List<Integer> -> String ("1,2,3")
     @TypeConverter
     public static String fromIntegerList(List<Integer> list) {
         if (list == null || list.isEmpty()) {
@@ -36,8 +34,6 @@ public class Converters {
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
     }
-
-    // Odczyt: String ("1,2,3") -> List<Integer>
     @TypeConverter
     public static List<Integer> toIntegerList(String data) {
         if (data == null || data.isEmpty()) {

@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // 1. Synchronizacja na start
         DataSynchronizer.syncAllData(this);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -34,34 +33,22 @@ public class MainActivity extends AppCompatActivity {
 
         if (navHostFragment != null) {
             NavController navController = navHostFragment.getNavController();
-
-            // 2. Setup podstawowy (dla Home i Profile)
             NavigationUI.setupWithNavController(binding.bottomNavigation, navController);
-
-            // 3. Nasłuchuj zmian w bazie (Czy jest plan?)
             observeActivePlan();
 
-            // 4. Własna obsługa kliknięcia w menu
             binding.bottomNavigation.setOnItemSelectedListener(item -> {
                 int itemId = item.getItemId();
-
-                // ŚRODKOWY GUZIK (ID w menu musi być nav_plans)
                 if (itemId == R.id.nav_plans) {
                     if (hasActivePlan) {
-                        // SCENARIUSZ A: JEST PLAN -> IDŹ DO PODGLĄDU
                         navController.navigate(R.id.nav_active_plan, null, getNavOptions());
                     } else {
-                        // SCENARIUSZ B: BRAK PLANU -> IDŹ DO LISTY WYBORU
                         navController.navigate(R.id.nav_plans, null, getNavOptions());
                     }
                     return true;
                 }
-
-                // Reszta guzików (Home, Profile) - standardowo
                 return NavigationUI.onNavDestinationSelected(item, navController);
             });
 
-            // 5. Ukrywanie paska na ekranach logowania/treningu
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
                 if (destination.getId() == R.id.loginFragment ||
                         destination.getId() == R.id.registerFragment ||
@@ -88,18 +75,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (item != null) {
             if (hasActivePlan) {
-                // Zmieniamy wygląd na "Mój Plan"
-                item.setTitle("Mój Plan");
-                item.setIcon(android.R.drawable.ic_menu_my_calendar); // Lub Twoja ikona R.drawable.ic_calendar
+                item.setTitle(getString(R.string.menu_my_plan));
+                item.setIcon(android.R.drawable.ic_menu_my_calendar);
             } else {
-                // Zmieniamy wygląd na "Rozpocznij"
-                item.setTitle("Rozpocznij");
+                item.setTitle(getString(R.string.menu_start));
                 item.setIcon(android.R.drawable.ic_input_add);
             }
         }
     }
 
-    // Opcje nawigacji (żeby nie tworzyć stosu miliona fragmentów)
     private NavOptions getNavOptions() {
         return new NavOptions.Builder()
                 .setLaunchSingleTop(true)

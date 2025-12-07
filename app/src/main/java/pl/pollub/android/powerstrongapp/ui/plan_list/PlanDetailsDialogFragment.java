@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import pl.pollub.android.powerstrongapp.R;
 import pl.pollub.android.powerstrongapp.api.model.PlannedExerciseDto;
 import pl.pollub.android.powerstrongapp.api.model.TrainingDayDto;
 import pl.pollub.android.powerstrongapp.api.model.TrainingPlanFullDto;
@@ -84,7 +85,7 @@ public class PlanDetailsDialogFragment extends DialogFragment {
 
         if (plan != null) {
             binding.tvSheetTitle.setText(plan.getName());
-            generateExpandedSchedule(); // Nowa metoda generująca
+            generateExpandedSchedule();
         }
     }
 
@@ -94,38 +95,24 @@ public class PlanDetailsDialogFragment extends DialogFragment {
         List<TrainingDayDto> templateDays = plan.getTrainingDays();
         if (templateDays == null || templateDays.isEmpty()) return;
 
-        // 1. Ustal długość szablonu (ile tygodni jest zdefiniowanych w bazie?)
         int maxTemplateWeek = 0;
         for (TrainingDayDto day : templateDays) {
             if (day.getWeekNumber() > maxTemplateWeek) {
                 maxTemplateWeek = day.getWeekNumber();
             }
         }
-        if (maxTemplateWeek == 0) maxTemplateWeek = 1; // Zabezpieczenie
+        if (maxTemplateWeek == 0) maxTemplateWeek = 1;
 
-        // 2. Ustal całkowitą długość planu (np. 8 tygodni)
         int totalWeeks = plan.getDurationOfCycle();
-        if (totalWeeks == 0) totalWeeks = maxTemplateWeek; // Jeśli duration nie ustawione, pokaż tylko szablon
+        if (totalWeeks == 0) totalWeeks = maxTemplateWeek;
 
-        // 3. Pętla główna: Generujemy widok Tydzień po Tygodniu
         for (int currentWeek = 1; currentWeek <= totalWeeks; currentWeek++) {
-
-            // --- NAGŁÓWEK TYGODNIA ---
             addWeekHeader(currentWeek);
 
-            // --- LOGIKA ZAPĘTLANIA ---
-            // Jeśli jesteśmy w 3. tygodniu, a szablon ma 1 tydzień: ((3-1) % 1) + 1 = 1.
-            // Jeśli jesteśmy w 3. tygodniu, a szablon ma 2 tygodnie: ((3-1) % 2) + 1 = 1.
-            // Jeśli jesteśmy w 2. tygodniu, a szablon ma 2 tygodnie: ((2-1) % 2) + 1 = 2.
             int templateWeekToUse = ((currentWeek - 1) % maxTemplateWeek) + 1;
-
-            // Pobierz dni pasujące do tego tygodnia szablonu
             List<TrainingDayDto> daysForThisWeek = getDaysForWeek(templateDays, templateWeekToUse);
-
-            // Posortuj je po dayOrder, żeby poniedziałek był przed środą
             Collections.sort(daysForThisWeek, Comparator.comparingInt(TrainingDayDto::getDayOrder));
 
-            // Wygeneruj widoki dla dni
             for (TrainingDayDto day : daysForThisWeek) {
                 addDayView(day);
             }
@@ -144,50 +131,42 @@ public class PlanDetailsDialogFragment extends DialogFragment {
 
     private void addWeekHeader(int weekNumber) {
         TextView tvWeekHeader = new TextView(requireContext());
-        tvWeekHeader.setText("TYDZIEŃ " + weekNumber);
+        tvWeekHeader.setText(getString(R.string.week_header, weekNumber));
         tvWeekHeader.setTextSize(14);
         tvWeekHeader.setTextColor(colorVariant);
         tvWeekHeader.setTypeface(null, Typeface.BOLD);
-        tvWeekHeader.setPadding(16, 32, 16, 8); // Większy padding z góry dla odstępu
+        tvWeekHeader.setPadding(16, 32, 16, 8);
         binding.daysContainer.addView(tvWeekHeader);
     }
 
     private void addDayView(TrainingDayDto day) {
-        // Kontener Dnia (Karta)
         LinearLayout dayLayout = new LinearLayout(requireContext());
         dayLayout.setOrientation(LinearLayout.VERTICAL);
         dayLayout.setPadding(24, 24, 24, 24);
-
-        // Tło: Białe z szarą ramką lub systemowe
         dayLayout.setBackgroundResource(android.R.drawable.editbox_dropdown_light_frame);
 
-        // Marginesy między dniami
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 0, 16);
         dayLayout.setLayoutParams(params);
 
-        // 1. Nagłówek Dnia (np. "Poniedziałek (Rozwiń)")
         TextView tvDayName = new TextView(requireContext());
         tvDayName.setText(day.getDayName());
         tvDayName.setTextSize(18);
         tvDayName.setTextColor(colorOnSurface);
         tvDayName.setTypeface(null, Typeface.BOLD);
 
-        // Dodajemy strzałkę/ikonkę tekstową
         tvDayName.setCompoundDrawablesWithIntrinsicBounds(0, 0, android.R.drawable.arrow_down_float, 0);
         tvDayName.setCompoundDrawablePadding(16);
 
         dayLayout.addView(tvDayName);
 
-        // 2. Kontener Ćwiczeń (Domyślnie UKRYTY)
         LinearLayout exercisesLayout = new LinearLayout(requireContext());
         exercisesLayout.setOrientation(LinearLayout.VERTICAL);
         exercisesLayout.setVisibility(View.GONE);
-        exercisesLayout.setPadding(0, 16, 0, 0); // Odstęp od tytułu
+        exercisesLayout.setPadding(0, 16, 0, 0);
 
         if (day.getPlannedExercises() != null) {
-            // Sortowanie ćwiczeń po exerciseOrder
             Collections.sort(day.getPlannedExercises(), Comparator.comparingInt(PlannedExerciseDto::getExerciseOrder));
 
             for (PlannedExerciseDto ex : day.getPlannedExercises()) {
@@ -196,18 +175,14 @@ public class PlanDetailsDialogFragment extends DialogFragment {
         }
         dayLayout.addView(exercisesLayout);
 
-        // 3. Logika Kliknięcia (Rozwijanie)
         View.OnClickListener toggleListener = v -> {
             boolean isVisible = exercisesLayout.getVisibility() == View.VISIBLE;
             exercisesLayout.setVisibility(isVisible ? View.GONE : View.VISIBLE);
-
-            // Zmiana ikony strzałki (góra/dół)
             int arrowIcon = isVisible ? android.R.drawable.arrow_down_float : android.R.drawable.arrow_up_float;
             tvDayName.setCompoundDrawablesWithIntrinsicBounds(0, 0, arrowIcon, 0);
         };
 
         dayLayout.setOnClickListener(toggleListener);
-
         binding.daysContainer.addView(dayLayout);
     }
 
@@ -216,7 +191,6 @@ public class PlanDetailsDialogFragment extends DialogFragment {
         exRow.setOrientation(LinearLayout.VERTICAL);
         exRow.setPadding(8, 8, 8, 16);
 
-        // Nazwa ćwiczenia
         TextView tvName = new TextView(requireContext());
         tvName.setText("• " + ex.getExerciseName());
         tvName.setTypeface(null, Typeface.BOLD);
@@ -224,17 +198,14 @@ public class PlanDetailsDialogFragment extends DialogFragment {
         tvName.setTextColor(colorOnSurface);
         exRow.addView(tvName);
 
-        // Szczegóły (Serie x Powtórzenia @ Ciężar)
         TextView tvDetails = new TextView(requireContext());
         String targetInfo = SuggestionUtils.getFormattedTarget(requireContext(), ex);
 
-        String detailsText = String.format(Locale.getDefault(),
-                "%d serii x %d powt. (%s)",
-                ex.getPlannedSets(), ex.getPlannedReps(), targetInfo);
+        String detailsText = getString(R.string.exercise_details_format, ex.getPlannedSets(), ex.getPlannedReps(), targetInfo);
 
         tvDetails.setText(detailsText);
         tvDetails.setTextColor(colorVariant);
-        tvDetails.setPadding(32, 0, 0, 0); // Wcięcie
+        tvDetails.setPadding(32, 0, 0, 0);
         exRow.addView(tvDetails);
 
         container.addView(exRow);

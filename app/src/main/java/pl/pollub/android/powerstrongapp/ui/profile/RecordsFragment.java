@@ -1,78 +1,76 @@
 package pl.pollub.android.powerstrongapp.ui.profile;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.color.MaterialColors;
-
 import java.util.ArrayList;
 
+import pl.pollub.android.powerstrongapp.R;
 import pl.pollub.android.powerstrongapp.api.model.UserExerciseMaxDto;
+import pl.pollub.android.powerstrongapp.databinding.FragmentRecordsBinding; // Binding Fragmentu
+import pl.pollub.android.powerstrongapp.databinding.ItemRecordBinding;    // Binding Wiersza
 
 public class RecordsFragment extends Fragment {
-    private ListView listView;
-    private ArrayAdapter<UserExerciseMaxDto> adapter;
 
+    private FragmentRecordsBinding binding;
+    private ArrayAdapter<UserExerciseMaxDto> adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        listView = new ListView(requireContext());
-        return listView;
+        binding = FragmentRecordsBinding.inflate(inflater, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         ProfileViewModel viewModel = new ViewModelProvider(requireParentFragment()).get(ProfileViewModel.class);
 
-        int colorOnSurface = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorOnSurface, Color.BLACK);
-        int colorVariant = MaterialColors.getColor(requireContext(), com.google.android.material.R.attr.colorOnSurfaceVariant, Color.GRAY);
-
-        adapter = new ArrayAdapter<UserExerciseMaxDto>(requireContext(), android.R.layout.simple_list_item_2, android.R.id.text1, new ArrayList<>()) {
+        adapter = new ArrayAdapter<UserExerciseMaxDto>(requireContext(), 0, new ArrayList<>()) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View v = super.getView(position, convertView, parent);
-                TextView text1 = v.findViewById(android.R.id.text1);
-                TextView text2 = v.findViewById(android.R.id.text2);
+                ItemRecordBinding itemBinding;
 
-                text1.setTextColor(colorOnSurface);
+                if (convertView == null) {
+                    itemBinding = ItemRecordBinding.inflate(LayoutInflater.from(getContext()), parent, false);
+                    convertView = itemBinding.getRoot();
+                    convertView.setTag(itemBinding);
+                } else {
+                    itemBinding = (ItemRecordBinding) convertView.getTag();
+                }
 
                 UserExerciseMaxDto item = getItem(position);
                 if (item != null) {
-                    text1.setText(item.getExerciseName());
+                    itemBinding.tvExerciseName.setText(item.getExerciseName());
 
                     Double max = item.getCurrentOneRepMax();
                     boolean hasRecord = max != null && max > 0;
 
                     if (hasRecord) {
-                        // Teraz pobieramy flagę bezpośrednio z DTO
                         if (item.isBodyweight()) {
-                            text2.setText("Max: " + max.intValue() + " powt.");
+                            itemBinding.tvRecordValue.setText(getString(R.string.max_reps, max.intValue()));
                         } else {
-                            text2.setText("Max: " + max + " kg");
+                            itemBinding.tvRecordValue.setText(getString(R.string.max_weight, String.valueOf(max)));
                         }
-                        text2.setTextColor(colorOnSurface);
                     } else {
-                        text2.setText("Brak rekordu");
-                        text2.setTextColor(colorVariant);
+                        itemBinding.tvRecordValue.setText(getString(R.string.no_record));
                     }
                 }
-                return v;
+                return convertView;
             }
         };
 
-        listView.setAdapter(adapter);
+        binding.listView.setAdapter(adapter);
 
         viewModel.getRecords().observe(getViewLifecycleOwner(), records -> {
             if (records != null) {
@@ -81,5 +79,11 @@ public class RecordsFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

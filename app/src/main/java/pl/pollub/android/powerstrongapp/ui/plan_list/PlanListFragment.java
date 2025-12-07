@@ -40,19 +40,15 @@ public class PlanListFragment extends Fragment implements PlanAdapter.OnPlanInte
         super.onViewCreated(view, savedInstanceState);
         App app = App.getInstance();
         PlanListViewModel.Factory factory = new PlanListViewModel.Factory(
+                app,
                 app.getPlanRepository());
         viewModel = new ViewModelProvider(this, factory).get(PlanListViewModel.class);
 
         setupRecyclerView();
         setupObservers();
 
-        // Nawigacja do kreatora
         binding.fabCreatePlan.setOnClickListener(v -> {
-            // Tworzymy instancję naszego nowego DialogFragmentu
             CreatePlanWizardDialogFragment wizard = new CreatePlanWizardDialogFragment();
-
-            // Wyświetlamy go na pełnym ekranie (jako nakładkę)
-            // "CreatePlanWizard" to tag, po którym system identyfikuje to okno
             wizard.show(getParentFragmentManager(), "CreatePlanWizard");
         });
     }
@@ -72,31 +68,25 @@ public class PlanListFragment extends Fragment implements PlanAdapter.OnPlanInte
                 binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE)
         );
 
-        // Sukces aktywacji -> Wróć do Home
         viewModel.isPlanActivated().observe(getViewLifecycleOwner(), activated -> {
             if (activated != null && activated) {
-                Toast.makeText(requireContext(), "Plan przypisany pomyślnie!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.plan_assigned_success, Toast.LENGTH_SHORT).show();
                 NavHostFragment.findNavController(this).navigate(R.id.action_nav_plans_to_nav_home);
             }
         });
 
-        // Błędy
         viewModel.getError().observe(getViewLifecycleOwner(), error -> {
             if (error != null) Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
         });
     }
 
-    // --- INTERAKCJE Z ADAPTERA ---
-
     @Override
     public void onSelectPlan(TrainingPlanFullDto plan) {
-        // 1. Użytkownik klika "Wybierz" -> Pokaż DatePicker
         showStartDatePicker(plan);
     }
 
     @Override
     public void onShowDetails(TrainingPlanFullDto plan) {
-        // 2. Użytkownik przytrzymuje -> Pokaż BottomSheet
         PlanDetailsDialogFragment dialog = PlanDetailsDialogFragment.newInstance(plan);
         dialog.show(getParentFragmentManager(), "PlanDetails");
     }
@@ -110,15 +100,12 @@ public class PlanListFragment extends Fragment implements PlanAdapter.OnPlanInte
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 requireContext(),
                 (view, year1, monthOfYear, dayOfMonth) -> {
-                    // Format daty YYYY-MM-DD (wymagany przez backend)
                     String selectedDate = String.format(Locale.US, "%d-%02d-%02d", year1, monthOfYear + 1, dayOfMonth);
-
-                    // Wywołanie ViewModelu
                     viewModel.activatePlan(plan.getId(), selectedDate);
                 },
                 year, month, day);
 
-        datePickerDialog.setMessage("Kiedy chcesz rozpocząć treningi?");
+        datePickerDialog.setMessage(getString(R.string.pick_start_date_title));
         datePickerDialog.show();
     }
 

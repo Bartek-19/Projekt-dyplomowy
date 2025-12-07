@@ -36,13 +36,10 @@ public class WorkoutRepository {
         this.planDao = planDao;
         this.trainingService = trainingService;
     }
-    public LiveData<List<Long>> getAllWorkoutDates() {
-        return executedSetDao.getAllWorkoutDates();
-    }
     public LiveData<Integer> getCompletedSessionsCount(int planId) {
-        // Od razu delegujemy do DAO
         return executedSetDao.getCompletedSessionsCount(planId);
     }
+
     public void completeWorkoutSession(int planId, List<ExecutedSetDto> executedSets, Callback<Boolean> uiCallback) {
         trainingService.sendExecutedSets(executedSets).enqueue(new Callback<Void>() {
             @Override
@@ -55,18 +52,13 @@ public class WorkoutRepository {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                // Offline
                 saveExecutedSetsLocally(executedSets, false, () -> {
                     checkIfPlanIsFinished(planId, uiCallback);
                 });
             }
         });
     }
-    public void sendExecutedSets(List<ExecutedSetDto> executedSets, Callback<Void> callback) {
-        trainingService.sendExecutedSets(executedSets).enqueue(callback);
-    }
-
-    public void saveExecutedSetsLocally(List<ExecutedSetDto> dtos, boolean isSynced, Runnable onSaved) {
+    private void saveExecutedSetsLocally(List<ExecutedSetDto> dtos, boolean isSynced, Runnable onSaved) {
         if (dtos == null || dtos.isEmpty()) {
             if (onSaved != null) onSaved.run();
             return;
@@ -74,11 +66,14 @@ public class WorkoutRepository {
         diskIO.execute(() -> {
             List<ExecutedSetEntity> entities = new ArrayList<>();
             long currentTimestamp = System.currentTimeMillis();
+
             for (ExecutedSetDto dto : dtos) {
-                if (dto.getExecutedReps() > 0) {
-                    entities.add(DtoMapper.toExecutedSetEntity(dto, currentTimestamp, isSynced));
+                if (dto.getExecutedReps() != null && dto.getExecutedReps() > 0) {
+                    ExecutedSetEntity entity = DtoMapper.toExecutedSetEntity(dto, currentTimestamp, isSynced);
+                    entities.add(entity);
                 }
             }
+
             if (!entities.isEmpty()) {
                 executedSetDao.insertAll(entities);
             }
@@ -87,16 +82,15 @@ public class WorkoutRepository {
             }
         });
     }
+
     public void synchronizeExecutedSets() {
         networkExecutor.execute(() -> {
             List<ExecutedSetEntity> unsyncedSets = executedSetDao.getSetsBySyncStatus(SyncStatus.NOT_SYNCED);
-
             if (unsyncedSets.isEmpty()) return;
 
             List<ExecutedSetDto> dtos = DtoMapper.toExecutedSetDtoList(unsyncedSets);
             try {
                 Response<Void> response = trainingService.sendExecutedSets(dtos).execute();
-
                 if (response.isSuccessful()) {
                     for (ExecutedSetEntity entity : unsyncedSets) {
                         entity.setSyncStatus(SyncStatus.SYNCED);
@@ -108,12 +102,14 @@ public class WorkoutRepository {
             }
         });
     }
+
     public LiveData<List<ExecutedHistoryDto>> getHistory(int planId) {
         return Transformations.map(
                 executedSetDao.getExecutedSetsHistoryForPlan(planId),
                 DtoMapper::toExecutedHistoryDtoList
         );
     }
+
     private void checkIfPlanIsFinished(int planId, Callback<Boolean> callback) {
         diskIO.execute(() -> {
             List<TrainingDayEntity> days = planDao.getDaysForPlanSync(planId);
@@ -123,11 +119,8 @@ public class WorkoutRepository {
                 postCallback(callback, false);
                 return;
             }
-
             int completedSessions = executedSetDao.getCompletedSessionsCountSync(planId);
-            // completedSessions uwzględnia już właśnie zapisaną sesję
 
-            // Logika długości planu
             int totalTemplateDays = days.size();
             int lastWeekInTemplate = 0;
             for(TrainingDayEntity d : days) if(d.getWeekNumber() > lastWeekInTemplate) lastWeekInTemplate = d.getWeekNumber();
@@ -144,6 +137,7 @@ public class WorkoutRepository {
             postCallback(callback, isFinished);
         });
     }
+
     private void postCallback(Callback<Boolean> callback, boolean result) {
         new android.os.Handler(android.os.Looper.getMainLooper()).post(() ->
                 callback.onResponse(null, Response.success(result))

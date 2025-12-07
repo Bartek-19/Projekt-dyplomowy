@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-43:/values-port/values-port.xml",
+            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-45:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\theka\\.gradle\\caches\\8.14.3\\transforms\\83c9d4077fe5547dec940eabf7e21c63\\transformed\\appcompat-1.7.1\\res\\values-port\\values-port.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\83c9d4077fe5547dec940eabf7e21c63\\transformed\\appcompat-1.7.1\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

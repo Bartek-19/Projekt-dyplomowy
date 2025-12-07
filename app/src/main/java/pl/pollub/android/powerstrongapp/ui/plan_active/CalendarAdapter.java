@@ -15,14 +15,12 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.DayVie
 
     private final List<Long> daysInMonth;
     private final List<Long> trainingDates;
-    private final List<Long> completedDates; // NOWE: Lista dat ukończonych
+    private final List<Long> completedDates;
     private final OnDateClickListener listener;
 
     public interface OnDateClickListener {
         void onDateClick(long dateMillis);
     }
-
-    // Zaktualizowany konstruktor
     public CalendarAdapter(List<Long> daysInMonth,
                            List<Long> trainingDates,
                            List<Long> completedDates,
@@ -59,21 +57,18 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.DayVie
         boolean isCompleted = checkDateInList(cal, completedDates);
 
         if (isCompleted) {
-            // DZIEŃ UKOŃCZONY (Zielony)
-            holder.tvDay.setBackgroundResource(R.drawable.bg_day_active); // Użyj kształtu kółka
-            holder.tvDay.getBackground().setTint(0xFF4CAF50); // Nadpisz kolor na zielony
+            holder.tvDay.setBackgroundResource(R.drawable.bg_day_active);
+            holder.tvDay.getBackground().setTint(0xFF4CAF50);
             holder.tvDay.setTextColor(Color.WHITE);
             holder.itemView.setOnClickListener(v -> listener.onDateClick(date));
         }
         else if (isTraining) {
-            // DZIEŃ ZAPLANOWANY (Twój standardowy kolor)
             holder.tvDay.setBackgroundResource(R.drawable.bg_day_active);
-            holder.tvDay.getBackground().setTintList(null); // Reset tintu
+            holder.tvDay.getBackground().setTintList(null);
             holder.tvDay.setTextColor(Color.WHITE);
             holder.itemView.setOnClickListener(v -> listener.onDateClick(date));
         }
         else {
-            // DZIEŃ WOLNY
             boolean isToday = isSameDay(cal, System.currentTimeMillis());
             if (isToday) {
                 holder.tvDay.setBackgroundResource(R.drawable.bg_day_inactive);

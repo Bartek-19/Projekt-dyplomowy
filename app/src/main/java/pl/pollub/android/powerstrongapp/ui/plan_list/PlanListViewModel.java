@@ -1,5 +1,9 @@
 package pl.pollub.android.powerstrongapp.ui.plan_list;
 
+import android.annotation.SuppressLint;
+import android.app.Application;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -7,17 +11,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
+import pl.pollub.android.powerstrongapp.R;
 import pl.pollub.android.powerstrongapp.api.model.TrainingPlanFullDto;
 import pl.pollub.android.powerstrongapp.data.repository.PlanRepository;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-public class PlanListViewModel extends ViewModel {
+public class PlanListViewModel extends AndroidViewModel {
 
     private final PlanRepository repository;
 
-    // LiveData dla UI
     private final MutableLiveData<List<TrainingPlanFullDto>> _plans = new MutableLiveData<>();
     public LiveData<List<TrainingPlanFullDto>> getPlans() { return _plans; }
 
@@ -30,7 +33,8 @@ public class PlanListViewModel extends ViewModel {
     private final MutableLiveData<Boolean> _isPlanActivated = new MutableLiveData<>();
     public LiveData<Boolean> isPlanActivated() { return _isPlanActivated; }
 
-    public PlanListViewModel(PlanRepository repository) {
+    public PlanListViewModel(@NonNull Application application, PlanRepository repository) {
+        super(application);
         this.repository = repository;
         loadPlans();
     }
@@ -38,20 +42,22 @@ public class PlanListViewModel extends ViewModel {
     public void loadPlans() {
         _isLoading.setValue(true);
         repository.getAvailablePlans(new Callback<List<TrainingPlanFullDto>>() {
+
+            @SuppressLint("StringFormatMatches")
             @Override
             public void onResponse(Call<List<TrainingPlanFullDto>> call, Response<List<TrainingPlanFullDto>> response) {
                 _isLoading.setValue(false);
                 if (response.isSuccessful() && response.body() != null) {
                     _plans.setValue(response.body());
                 } else {
-                    _error.setValue("Błąd pobierania: " + response.code());
+                    _error.setValue(getApplication().getString(R.string.error_fetching, response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<List<TrainingPlanFullDto>> call, Throwable t) {
                 _isLoading.setValue(false);
-                _error.setValue("Błąd sieci: " + t.getMessage());
+                _error.setValue(getApplication().getString(R.string.error_network_detailed, t.getMessage()));
             }
         });
     }
@@ -66,29 +72,30 @@ public class PlanListViewModel extends ViewModel {
                 if (response.isSuccessful()) {
                     _isPlanActivated.setValue(true);
                 } else {
-                    _error.setValue("Nie udało się aktywować planu.");
+                    _error.setValue(getApplication().getString(R.string.error_plan_activation));
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 _isLoading.setValue(false);
-                _error.setValue("Błąd sieci.");
+                _error.setValue(getApplication().getString(R.string.error_network_short));
             }
         });
     }
 
-    // --- FABRYKA ---
     public static class Factory implements ViewModelProvider.Factory {
+        private final Application application;
         private final PlanRepository repository;
 
-        public Factory(PlanRepository repository) {
+        public Factory(Application application, PlanRepository repository) {
+            this.application = application;
             this.repository = repository;
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new PlanListViewModel(repository);
+            return (T) new PlanListViewModel(application, repository);
         }
     }
 }

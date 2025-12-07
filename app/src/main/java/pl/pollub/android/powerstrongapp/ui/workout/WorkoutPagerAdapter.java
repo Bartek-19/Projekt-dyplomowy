@@ -20,7 +20,6 @@ public class WorkoutPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        // Przekazujemy teraz ćwiczenie, pozycję i całkowitą liczbę ćwiczeń
         return WorkoutExecutionFragment.newInstance(
                 exercises.get(position),
                 position,

@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,18 +23,19 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
 import pl.pollub.android.powerstrongapp.App;
 import pl.pollub.android.powerstrongapp.R;
-import pl.pollub.android.powerstrongapp.api.model.ExecutedHistoryDto; // ZMIANA: Import DTO
+import pl.pollub.android.powerstrongapp.api.model.ExecutedHistoryDto;
 import pl.pollub.android.powerstrongapp.data.local.entity.PlannedExerciseEntity;
 import pl.pollub.android.powerstrongapp.data.local.entity.TrainingDayEntity;
 import pl.pollub.android.powerstrongapp.data.local.entity.TrainingPlanEntity;
+import pl.pollub.android.powerstrongapp.databinding.DialogDayDetailsBinding;
 import pl.pollub.android.powerstrongapp.databinding.FragmentActivePlanBinding;
 import pl.pollub.android.powerstrongapp.databinding.ItemExerciseRowBinding;
-import pl.pollub.android.powerstrongapp.utils.TrainingCycleCalculator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,8 +44,6 @@ public class ActivePlanFragment extends Fragment {
 
     private FragmentActivePlanBinding binding;
     private ActivePlanViewModel viewModel;
-
-    // ZMIANA: Typ listy to teraz ExecutedHistoryDto
     private List<ExecutedHistoryDto> cachedHistory = new ArrayList<>();
 
     @Override
@@ -65,17 +61,22 @@ public class ActivePlanFragment extends Fragment {
                 app.getWorkoutRepository()
         )).get(ActivePlanViewModel.class);
 
-        setupObservers();
         setupButtons();
     }
 
-    private void setupObservers() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
+
+    private void refreshData() {
         viewModel.getActivePlan().observe(getViewLifecycleOwner(), plan -> {
             if (plan != null) {
                 binding.tvPlanName.setText(plan.getName());
-                binding.tvPlanDetails.setText("Cykl: " + plan.getDurationOfCycle() + " tygodni\nStart: " + plan.getStartDate());
+                String simpleDetails = plan.getDurationOfCycle() + " " + getString(R.string.weeks_short) + "\n" + plan.getStartDate();
+                binding.tvPlanDetails.setText(simpleDetails);
 
-                // ZMIANA: Pobieramy historię jako DTO
                 viewModel.getExecutedSetsHistoryForPlan(plan.getId()).observe(getViewLifecycleOwner(), historyList -> {
                     cachedHistory = historyList;
                     loadCalendarData(plan, historyList);
@@ -87,7 +88,6 @@ public class ActivePlanFragment extends Fragment {
         });
     }
 
-    // ZMIANA: Parametr przyjmuje List<ExecutedHistoryDto>
     private void loadCalendarData(TrainingPlanEntity plan, List<ExecutedHistoryDto> historyList) {
         viewModel.getPlanDays(plan.getId()).observe(getViewLifecycleOwner(), days -> {
             if (days != null && !days.isEmpty()) {
@@ -96,7 +96,6 @@ public class ActivePlanFragment extends Fragment {
         });
     }
 
-    // ZMIANA: Parametr przyjmuje List<ExecutedHistoryDto>
     private void setupCalendar(TrainingPlanEntity plan, List<TrainingDayEntity> days, List<ExecutedHistoryDto> historyList) {
         if (plan.getStartDate() == null) return;
 
@@ -119,14 +118,12 @@ public class ActivePlanFragment extends Fragment {
                 curr = curr.plusDays(1);
             }
 
-            // 1. Daty zaplanowane (niebieskie)
-            List<Long> trainingDates =  viewModel.getPlannedTrainingDates(
-                            plan,
-                            days,
-                            viewStart.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli(),
-                            viewEnd.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
+            List<Long> trainingDates = viewModel.getPlannedTrainingDates(
+                    plan,
+                    days,
+                    viewStart.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli(),
+                    viewEnd.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
-            // 2. Daty ukończone (zielone) - ZMIANA: Używamy nowej metody ViewModelu dla DTO
             List<Long> completedDates = viewModel.getCompletedDatesFromHistory(historyList);
 
             CalendarAdapter adapter = new CalendarAdapter(calendarDays, trainingDates, completedDates, dateMillis -> {
@@ -136,7 +133,7 @@ public class ActivePlanFragment extends Fragment {
             binding.rvCalendar.setAdapter(adapter);
 
         } catch (Exception e) {
-            Toast.makeText(requireContext(), "Błąd kalendarza: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.error_prefix) + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -145,76 +142,66 @@ public class ActivePlanFragment extends Fragment {
         if (dayEntity == null) return;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_day_details, null);
-        builder.setView(dialogView);
+        DialogDayDetailsBinding dialogBinding = DialogDayDetailsBinding.inflate(LayoutInflater.from(requireContext()));
+
+        builder.setView(dialogBinding.getRoot());
         AlertDialog dialog = builder.create();
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
-        TextView tvTitle = dialogView.findViewById(R.id.tvDialogDayTitle);
-        TextView tvDate = dialogView.findViewById(R.id.tvDialogDate);
-        LinearLayout container = dialogView.findViewById(R.id.dialogExercisesContainer);
-        ProgressBar progressBar = dialogView.findViewById(R.id.dialogLoading);
-        TextView tvEmpty = dialogView.findViewById(R.id.tvDialogEmpty);
-        View btnClose = dialogView.findViewById(R.id.btnCloseDialog);
+        dialogBinding.tvDialogDayTitle.setText(dayEntity.getDayName());
 
-        tvTitle.setText(dayEntity.getDayName());
         LocalDate date = Instant.ofEpochMilli(dateMillis).atZone(ZoneId.systemDefault()).toLocalDate();
-        tvDate.setText(date.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.getDefault())));
+        dialogBinding.tvDialogDate.setText(date.format(DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy", Locale.getDefault())));
 
-        btnClose.setOnClickListener(v -> dialog.dismiss());
+        dialogBinding.btnCloseDialog.setOnClickListener(v -> dialog.dismiss());
 
         viewModel.getExercisesForClickedDate(dateMillis, plan, daysTemplate).observe(getViewLifecycleOwner(), exercises -> {
-            progressBar.setVisibility(View.GONE);
-            container.removeAllViews();
+            dialogBinding.dialogLoading.setVisibility(View.GONE);
+            dialogBinding.dialogExercisesContainer.removeAllViews();
 
             if (exercises == null || exercises.isEmpty()) {
-                tvEmpty.setVisibility(View.VISIBLE);
-                container.addView(tvEmpty);
+                dialogBinding.tvDialogEmpty.setVisibility(View.VISIBLE);
+                dialogBinding.dialogExercisesContainer.addView(dialogBinding.tvDialogEmpty);
             } else {
-                tvEmpty.setVisibility(View.GONE);
+                dialogBinding.tvDialogEmpty.setVisibility(View.GONE);
 
-                exercises.sort((e1, e2) -> Integer.compare(
-                        e1.getExerciseOrder() != null ? e1.getExerciseOrder() : 0,
-                        e2.getExerciseOrder() != null ? e2.getExerciseOrder() : 0
-                ));
+                exercises.sort(Comparator.comparingInt(e -> e.getExerciseOrder() != null ? e.getExerciseOrder() : 0));
 
                 for (PlannedExerciseEntity ex : exercises) {
                     ItemExerciseRowBinding rowBinding = ItemExerciseRowBinding.inflate(
-                            getLayoutInflater(), container, true
+                            getLayoutInflater(), dialogBinding.dialogExercisesContainer, true
                     );
 
                     String weightText = (ex.getTargetWeight() != null && ex.getTargetWeight() > 0)
                             ? " @ " + ex.getTargetWeight() + "kg" : "";
 
-                    String text = "• " + ex.getExerciseName() + " (" +
+                    String detailText = "• " + ex.getExerciseName() + " (" +
                             ex.getPlannedSets() + "x" + ex.getPlannedReps() + weightText + ")";
 
-                    rowBinding.tvExerciseDetail.setText(text);
+                    rowBinding.tvExerciseDetail.setText(detailText);
                 }
             }
         });
         dialog.show();
     }
 
-
     private void setupButtons() {
         binding.btnCancelPlan.setOnClickListener(v -> {
             new AlertDialog.Builder(requireContext())
-                    .setTitle("Anulować plan?")
-                    .setMessage("Czy na pewno chcesz przerwać obecny cykl treningowy? Tej operacji nie można cofnąć.")
-                    .setPositiveButton("Tak, anuluj", (dialog, which) -> performCancelPlan())
-                    .setNegativeButton("Nie", null)
+                    .setTitle(R.string.cancel_plan)
+                    .setMessage(R.string.delete_account_message)
+                    .setPositiveButton(R.string.yes, (dialog, which) -> performCancelPlan())
+                    .setNegativeButton(R.string.no, null)
                     .show();
         });
 
         binding.btnHistory.setOnClickListener(v -> {
             if (cachedHistory == null || cachedHistory.isEmpty()) {
-                Toast.makeText(requireContext(), "Brak wykonanych treningów w tym planie.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.history_empty, Toast.LENGTH_SHORT).show();
             } else {
-                // TERAZ TYPY SIĘ ZGADZAJĄ: cachedHistory to List<ExecutedHistoryDto>
                 HistoryDialogFragment historyDialog = new HistoryDialogFragment(cachedHistory);
                 historyDialog.show(getChildFragmentManager(), "history");
             }
@@ -223,7 +210,7 @@ public class ActivePlanFragment extends Fragment {
 
     private void performCancelPlan() {
         binding.btnCancelPlan.setEnabled(false);
-        binding.btnCancelPlan.setText("Anulowanie...");
+        binding.btnCancelPlan.setText(R.string.loading);
 
         viewModel.cancelCurrentPlan(new Callback<Void>() {
             @Override
@@ -231,13 +218,13 @@ public class ActivePlanFragment extends Fragment {
                 if (getContext() == null) return;
 
                 binding.btnCancelPlan.setEnabled(true);
-                binding.btnCancelPlan.setText("Anuluj Plan");
+                binding.btnCancelPlan.setText(R.string.cancel_plan);
 
                 if (response.isSuccessful()) {
-                    Toast.makeText(requireContext(), "Plan został anulowany.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.plan_finished_congrats, Toast.LENGTH_SHORT).show();
                     NavHostFragment.findNavController(ActivePlanFragment.this).navigateUp();
                 } else {
-                    Toast.makeText(requireContext(), "Błąd serwera: " + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), getString(R.string.error_server_code, String.valueOf(response.code())), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -245,8 +232,8 @@ public class ActivePlanFragment extends Fragment {
             public void onFailure(Call<Void> call, Throwable t) {
                 if (getContext() == null) return;
                 binding.btnCancelPlan.setEnabled(true);
-                binding.btnCancelPlan.setText("Anuluj Plan");
-                Toast.makeText(requireContext(), "Błąd sieci: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                binding.btnCancelPlan.setText(R.string.cancel_plan);
+                Toast.makeText(requireContext(), getString(R.string.error_network_detailed, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
     }

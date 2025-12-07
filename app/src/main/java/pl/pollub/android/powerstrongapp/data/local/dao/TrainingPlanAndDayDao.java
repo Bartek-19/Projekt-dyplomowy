@@ -25,10 +25,8 @@ public abstract class TrainingPlanAndDayDao {
     abstract void insertExercises(List<PlannedExerciseEntity> exercises);
     @Query("DELETE FROM training_plans")
     abstract void deleteAllPlans();
-
     @Query("DELETE FROM training_days")
     abstract void deleteAllDays();
-
     @Query("DELETE FROM planned_exercises")
     abstract void deleteAllExercises();
     @Query("SELECT * FROM training_plans WHERE status = 'ACTIVE' LIMIT 1")

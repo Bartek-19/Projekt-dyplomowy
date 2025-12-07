@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import java.util.ArrayList;
+import pl.pollub.android.powerstrongapp.R;
 import pl.pollub.android.powerstrongapp.api.model.TrainingPlanFullDto;
 
 public class PlanHistoryFragment extends Fragment {
@@ -33,7 +34,7 @@ public class PlanHistoryFragment extends Fragment {
             if (history != null) {
                 adapter.clear();
                 for (TrainingPlanFullDto plan : history) {
-                    String status = plan.getStatus() != null ? plan.getStatus() : "Zakończony";
+                    String status = plan.getStatus() != null ? plan.getStatus() : getString(R.string.status_finished);
                     adapter.add(plan.getName() + " (" + status + ")\n" + plan.getStartDate());
                 }
                 adapter.notifyDataSetChanged();

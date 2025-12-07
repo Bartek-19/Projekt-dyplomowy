@@ -44,7 +44,6 @@ public class ActivePlanViewModel extends ViewModel {
             TrainingPlanEntity plan,
             List<TrainingDayEntity> daysTemplate
     ) {
-        // Logika szukania dnia jest teraz w PlanRepo (delegowana do kalkulatora)
         TrainingDayEntity day = planRepository.getDayForDate(plan, daysTemplate, dateMillis);
         if (day != null) {
             return planRepository.getPlannedExercisesForDay(day.getId());
@@ -61,15 +60,10 @@ public class ActivePlanViewModel extends ViewModel {
         return planRepository.getDayForDate(plan, daysTemplate, dateMillis);
     }
 
-    // --- HISTORIA TRENINGÓW (WorkoutRepository) ---
-
     public LiveData<List<ExecutedHistoryDto>> getExecutedSetsHistoryForPlan(int planId) {
         return workoutRepository.getHistory(planId);
     }
 
-    /**
-     * Pomocnicza metoda do wyciągnięcia unikalnych dat z historii (dla zielonych kropek w kalendarzu).
-     */
     public List<Long> getCompletedDatesFromHistory(List<ExecutedHistoryDto> historyList) {
         if (historyList == null || historyList.isEmpty()) return new ArrayList<>();
 

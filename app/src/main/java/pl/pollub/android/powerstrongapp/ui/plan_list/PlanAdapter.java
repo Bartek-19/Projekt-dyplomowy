@@ -6,18 +6,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
+import pl.pollub.android.powerstrongapp.R;
 import pl.pollub.android.powerstrongapp.api.model.TrainingPlanFullDto;
-import pl.pollub.android.powerstrongapp.databinding.ItemPlanBinding; // Upewnij się, że masz layout item_plan.xml
+import pl.pollub.android.powerstrongapp.databinding.ItemPlanBinding;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
 
     private List<TrainingPlanFullDto> plans = new ArrayList<>();
     private final OnPlanInteractionListener listener;
 
-    // Interfejs obsługujący oba zdarzenia
     public interface OnPlanInteractionListener {
-        void onSelectPlan(TrainingPlanFullDto plan); // Kliknięcie
-        void onShowDetails(TrainingPlanFullDto plan); // Przytrzymanie
+        void onSelectPlan(TrainingPlanFullDto plan);
+        void onShowDetails(TrainingPlanFullDto plan);
     }
 
     public PlanAdapter(OnPlanInteractionListener listener) {
@@ -57,19 +57,14 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         public void bind(TrainingPlanFullDto plan) {
             binding.tvPlanName.setText(plan.getName());
-            binding.tvWeeksCount.setText(plan.getDurationOfCycle() + " tyg.");
-            // binding.tvPlanDescription.setText(plan.getDescription()); // Jeśli masz opis w DTO
+            // Użycie String resource
+            binding.tvWeeksCount.setText(plan.getDurationOfCycle() + " " + itemView.getContext().getString(R.string.weeks_short));
 
-            // Kliknięcie przycisku "Wybierz"
             binding.btnSelectPlan.setOnClickListener(v -> listener.onSelectPlan(plan));
-
-            // Kliknięcie w całą kartę -> Też wybór (lub szczegóły, zależy od preferencji)
             binding.getRoot().setOnClickListener(v -> listener.onSelectPlan(plan));
-
-            // Dłuższe przytrzymanie -> Pokaż szczegóły
             binding.getRoot().setOnLongClickListener(v -> {
                 listener.onShowDetails(plan);
-                return true; // Zdarzenie skonsumowane
+                return true;
             });
         }
     }

@@ -15,7 +15,7 @@ public interface UserRecordDao {
     @Query("SELECT * FROM user_records")
     LiveData<List<UserRecordEntity>> getAllRecords();
     @Query("SELECT * FROM user_records ORDER BY lastUpdatedDate DESC LIMIT 1")
-    public abstract LiveData<UserRecordEntity> getLatestRecord();
+    LiveData<UserRecordEntity> getLatestRecord();
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<UserRecordEntity> records);
     @Query("DELETE FROM user_records")

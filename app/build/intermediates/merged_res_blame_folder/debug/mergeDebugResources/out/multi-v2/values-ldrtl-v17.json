@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-43:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-45:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\theka\\.gradle\\caches\\8.14.3\\transforms\\b7a4455faae5444b66882d60cf159a00\\transformed\\material-1.13.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\b7a4455faae5444b66882d60cf159a00\\transformed\\material-1.13.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

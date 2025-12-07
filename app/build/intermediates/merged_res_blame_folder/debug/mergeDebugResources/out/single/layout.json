@@ -1,0 +1,86 @@
+[
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/dialog_add_day.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/dialog_add_day.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/item_day_card.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/item_day_card.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/activity_main.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/activity_main.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/item_record.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/item_record.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_active_plan.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_active_plan.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/item_calendar_day.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/item_calendar_day.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/dialog_add_exercise.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/dialog_add_exercise.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/dialog_plan_completion.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/dialog_plan_completion.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_register.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_register.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/dialog_create_plan_wizard.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/dialog_create_plan_wizard.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/item_exercise_row.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/item_exercise_row.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/item_plan.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/item_plan.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_workout.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_workout.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/dialog_day_details.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/dialog_day_details.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/dialog_plan_details.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/dialog_plan_details.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_plan_list.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_plan_list.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_records.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_records.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/item_exercise.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/item_exercise.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_profile.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_login.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_login.xml"
+    },
+    {
+        "merged": "pl.pollub.android.powerstrongapp-mergeDebugResources-46:/layout/fragment_home.xml",
+        "source": "pl.pollub.android.powerstrongapp-main-49:/layout/fragment_home.xml"
+    }
+]

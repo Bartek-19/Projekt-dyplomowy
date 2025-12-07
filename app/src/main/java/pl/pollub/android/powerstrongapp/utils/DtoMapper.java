@@ -8,12 +8,7 @@ import pl.pollub.android.powerstrongapp.api.model.*;
 import pl.pollub.android.powerstrongapp.data.local.entity.*;
 import pl.pollub.android.powerstrongapp.data.local.entity.enums.SyncStatus;
 
-/**
- * Klasa statyczna do mapowania obiektów DTO (Serwer) na Encje (Room) i na odwrót.
- * Używa wzorca Builder dla czytelności i bezpieczeństwa.
- */
 public class DtoMapper {
-    // MAPOWANIE DTO -> ENTITY
     public static UserEntity toUserEntity(UserDto userDto) {
         if (userDto == null) return null;
 
@@ -112,7 +107,6 @@ public class DtoMapper {
                         .build())
                 .collect(Collectors.toList());
     }
-    // MAPOWANIE ENTITY -> DTO
     public static ExecutedSetDto toExecutedSetDto(ExecutedSetEntity entity) {
         if (entity == null) return null;
         return ExecutedSetDto.builder()
@@ -122,36 +116,6 @@ public class DtoMapper {
                 .weightUsed(entity.getWeightUsed())
                 .build();
     }
-
-    public static PlannedExerciseDto toPlannedExerciseDto(PlannedExerciseEntity entity) {
-        if (entity == null) return null;
-        return PlannedExerciseDto.builder()
-                .id(entity.getId())
-                .exerciseName(entity.getExerciseName())
-                .exerciseDescription(entity.getExerciseDescription())
-                .exerciseOrder(entity.getExerciseOrder())
-                .plannedSets(entity.getPlannedSets())
-                .plannedReps(entity.getPlannedReps())
-                .effortType(entity.getEffortType())
-                .targetWeight(entity.getTargetWeight())
-                .suggestionType(entity.getSuggestionType())
-                .suggestionValue(entity.getSuggestionValue())
-                .build();
-    }
-
-    public static TrainingDayDto toTrainingDayDto(TrainingDayEntity entity) {
-        if (entity == null) return null;
-        return TrainingDayDto.builder()
-                .id(entity.getId())
-                .trainingPlanId(entity.getTrainingPlanId())
-                .dayName(entity.getDayName())
-                .dayOrder(entity.getDayOrder())
-                .daysGap(entity.getDaysGap())
-                .weekNumber(entity.getWeekNumber())
-                .build();
-    }
-
-
     public static List<ExerciseCategoryEntity> toExerciseCategoryEntityList(List<ExerciseCategoryDto> dtos) {
         if (dtos == null) return List.of();
         return dtos.stream()
@@ -169,9 +133,6 @@ public class DtoMapper {
                 .description(dto.getDescription())
                 .build()).collect(Collectors.toList());
     }
-
-
-
     public static List<TrainingMethodEntity> toTrainingMethodEntityList(List<TrainingMethodDto> dtos) {
         if (dtos == null) return List.of();
         return dtos.stream().map(dto -> TrainingMethodEntity.builder()

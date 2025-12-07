@@ -12,7 +12,4 @@ import pl.pollub.android.powerstrongapp.data.local.entity.EffortTypeEntity;
 public interface EffortTypeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<EffortTypeEntity> list);
-
-    @Query("SELECT * FROM effort_types ORDER BY id ASC")
-    LiveData<List<EffortTypeEntity>> getAllEffortTypes();
 }

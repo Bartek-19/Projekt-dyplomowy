@@ -1,0 +1,3 @@
+pl.pollub.android.powerstrongapp.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

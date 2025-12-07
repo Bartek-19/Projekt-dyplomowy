@@ -12,7 +12,4 @@ import pl.pollub.android.powerstrongapp.data.local.entity.ExerciseCategoryEntity
 public interface ExerciseCategoryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ExerciseCategoryEntity> list);
-
-    @Query("SELECT * FROM exercise_categories ORDER BY name ASC")
-    LiveData<List<ExerciseCategoryEntity>> getAllCategories();
 }

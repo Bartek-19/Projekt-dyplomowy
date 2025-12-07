@@ -45,11 +45,9 @@ public class WorkoutViewModel extends ViewModel {
         _navigateBack.setValue(false);
         temporaryResults.clear();
 
-        // Pobieramy ćwiczenia z PlanRepo
         planRepository.getPlannedExercisesForDay(dayId).observeForever(exercises -> {
             _plannedExercises.setValue(exercises);
 
-            // Pobieramy ID planu (potrzebne do checkFinish)
             planRepository.getActiveTrainingPlan().observeForever(plan -> {
                 if(plan != null) currentPlanId = plan.getId();
             });
@@ -63,11 +61,6 @@ public class WorkoutViewModel extends ViewModel {
     public List<ExecutedSetDto> getResultsForExercise(int exerciseId) {
         return temporaryResults.get(exerciseId);
     }
-
-    /**
-     * Zapisuje trening i sprawdza czy to koniec planu.
-     * Używa nowej, "czystej" metody w WorkoutRepository.
-     */
     public void finishWorkoutAndSave(Callback<Void> uiCallback) {
         List<ExecutedSetDto> allExecutedSets = new ArrayList<>();
         for (List<ExecutedSetDto> sets : temporaryResults.values()) {
@@ -75,12 +68,9 @@ public class WorkoutViewModel extends ViewModel {
         }
 
         if (currentPlanId == -1) {
-            // Zabezpieczenie, gdyby plan nie zdążył się załadować (mało prawdopodobne)
             if(uiCallback != null) uiCallback.onResponse(null, Response.success(null));
             return;
         }
-
-        // Delegujemy całą logikę (Send -> SaveLocal -> CheckFinish) do repozytorium
         workoutRepository.completeWorkoutSession(currentPlanId, allExecutedSets, new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -89,23 +79,18 @@ public class WorkoutViewModel extends ViewModel {
                 if (isEndOfPlan) {
                     _showPlanCompletionDialog.setValue(true);
                 } else {
-                    // Normalny koniec treningu - wychodzimy
                     if(uiCallback != null) uiCallback.onResponse(null, Response.success(null));
                 }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                // Nawet w przypadku błędu (offline), repo zapisało dane lokalnie.
-                // Więc uznajemy trening za zakończony i wychodzimy.
                 if(uiCallback != null) uiCallback.onResponse(null, Response.success(null));
             }
         });
     }
 
-    // Metoda wywoływana z Fragmentu po wypełnieniu ankiety
     public void submitPlanCompletion(PlanCompletionRequestDto dto) {
-        // Ankieta to modyfikacja statusu planu, więc logicznie PlanRepository
         planRepository.completePlan(dto, new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

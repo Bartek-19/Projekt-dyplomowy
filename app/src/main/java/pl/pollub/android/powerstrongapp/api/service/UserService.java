@@ -16,7 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface UserService {
-    @GET("/api/users/me")
+    @GET("/api/user/me")
     Call<UserDto> getUserDetails();
     @GET("/api/user/records")
     Call<List<UserExerciseMaxDto>> getUserRecords();

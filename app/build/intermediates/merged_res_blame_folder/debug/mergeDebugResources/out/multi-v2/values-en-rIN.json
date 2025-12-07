@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-43:/values-en-rIN/values-en-rIN.xml",
+            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-45:/values-en-rIN/values-en-rIN.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\theka\\.gradle\\caches\\8.14.3\\transforms\\a45d6bba752d5b5d58163c72ef8192e3\\transformed\\core-1.13.1\\res\\values-en-rIN\\values-en-rIN.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\a45d6bba752d5b5d58163c72ef8192e3\\transformed\\core-1.13.1\\res\\values-en-rIN\\values-en-rIN.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\theka\\.gradle\\caches\\8.14.3\\transforms\\33fa71abfcce9737ca3212f4f6063661\\transformed\\navigation-ui-2.9.6\\res\\values-en-rIN\\values-en-rIN.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\33fa71abfcce9737ca3212f4f6063661\\transformed\\navigation-ui-2.9.6\\res\\values-en-rIN\\values-en-rIN.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\theka\\.gradle\\caches\\8.14.3\\transforms\\83c9d4077fe5547dec940eabf7e21c63\\transformed\\appcompat-1.7.1\\res\\values-en-rIN\\values-en-rIN.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\83c9d4077fe5547dec940eabf7e21c63\\transformed\\appcompat-1.7.1\\res\\values-en-rIN\\values-en-rIN.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

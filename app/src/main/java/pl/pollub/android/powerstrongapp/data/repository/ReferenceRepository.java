@@ -17,18 +17,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ReferenceRepository {
-
-    // DAO
     private final ExerciseDao exerciseDao;
     private final MovementPatternDao movementPatternDao;
     private final TargetMuscleGroupDao targetMuscleGroupDao;
-    private final ExerciseCategoryDao exerciseCategoryDao; // Nowe
-    private final EffortTypeDao effortTypeDao;             // Nowe
-    private final TrainingMethodDao trainingMethodDao;     // Nowe
+    private final ExerciseCategoryDao exerciseCategoryDao;
+    private final EffortTypeDao effortTypeDao;
+    private final TrainingMethodDao trainingMethodDao;
 
     private final ReferenceService referenceService;
 
-    private static final int NUMBER_OF_THREADS = 4; // Zwiększmy wątki, bo dużo danych
+    private static final int NUMBER_OF_THREADS = 4;
     private static final ExecutorService networkExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     public ReferenceRepository(Application application, ReferenceService referenceService) {
@@ -42,10 +40,6 @@ public class ReferenceRepository {
 
         this.referenceService = referenceService;
     }
-
-    /**
-     * Inicjuje synchronizację WSZYSTKICH danych referencyjnych.
-     */
     public void syncDictionaries() {
         syncExercises();
         syncMovementPatterns();
@@ -54,9 +48,6 @@ public class ReferenceRepository {
         syncEffortTypes();
         syncTrainingMethods();
     }
-
-    // --- METODY DO POBIERANIA Z BAZY (LiveData dla UI) ---
-
     public LiveData<List<ExerciseEntity>> getAllExercises() {
         return exerciseDao.getAllExercises();
     }
@@ -69,7 +60,6 @@ public class ReferenceRepository {
                 @Override
                 public void onResponse(Call<List<ExerciseDto>> call, Response<List<ExerciseDto>> response) {
                     if (response.isSuccessful() && response.body() != null) {
-                        // Używamy DtoMapper (upewnij się, że masz te metody w DtoMapper!)
                         List<ExerciseEntity> entities = DtoMapper.toExerciseEntityList(response.body());
                         AppDatabase.databaseWriteExecutor.execute(() -> exerciseDao.insertAllExercises(entities));
                     }

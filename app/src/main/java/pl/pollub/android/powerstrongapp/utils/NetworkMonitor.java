@@ -9,8 +9,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 public class NetworkMonitor {
-
-    private static final String TAG = "NetworkMonitor";
     private static final long MIN_SYNC_INTERVAL_MS = 10_000;
     private static long lastSyncTime = 0;
 
@@ -29,12 +27,10 @@ public class NetworkMonitor {
             @Override
             public void onAvailable(@NonNull Network network) {
                 super.onAvailable(network);
-                Log.d(TAG, "Wykryto połączenie z internetem!");
 
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastSyncTime > MIN_SYNC_INTERVAL_MS) {
                     lastSyncTime = currentTime;
-                    Log.i(TAG, "Automatyczne wywołanie DataSynchronizer...");
                     DataSynchronizer.syncAllData(context);
                 }
             }
@@ -42,7 +38,6 @@ public class NetworkMonitor {
             @Override
             public void onLost(@NonNull Network network) {
                 super.onLost(network);
-                Log.d(TAG, "Utracono połączenie z internetem.");
             }
         });
     }

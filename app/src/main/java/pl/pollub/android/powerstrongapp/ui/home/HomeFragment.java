@@ -1,12 +1,12 @@
 package pl.pollub.android.powerstrongapp.ui.home;
 
 import android.annotation.SuppressLint;
-import android.content.res.ColorStateList; // DO KOLOROWANIA PRZYCISKÓW
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView; // Poprawa importu (było LinearLayout w starym kodzie, tu potrzebne TextView w helperze)
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.google.android.material.color.MaterialColors; // WAŻNE: Biblioteka do kolorów motywu
+import com.google.android.material.color.MaterialColors;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,7 +43,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         App app = App.getInstance();
 
-        // Inicjalizacja ViewModelu
         viewModel = new ViewModelProvider(this, new MainViewModel.Factory(
                 app.getPlanRepository(),
                 app.getUserRepository(),
@@ -55,7 +54,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupObservers() {
-        // 1. Aktywny Plan
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            if (isLoading != null && isLoading) {
+                binding.homeLoading.setVisibility(View.VISIBLE);
+                binding.homeContent.setVisibility(View.INVISIBLE);
+            } else {
+                binding.homeLoading.setVisibility(View.GONE);
+                binding.homeContent.setVisibility(View.VISIBLE);
+            }
+        });
+
         viewModel.getActiveTrainingPlan().observe(getViewLifecycleOwner(), plan -> {
             if (plan == null) {
                 showStateNoPlan();
@@ -64,7 +72,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // 2. Data i Dzień (sterowanie przyciskiem treningu)
         viewModel.getAllowedDateTimestamp().observe(getViewLifecycleOwner(), timestamp -> {
             checkTrainingState();
         });
@@ -73,22 +80,21 @@ public class HomeFragment extends Fragment {
             checkTrainingState();
         });
 
-        // 3. Statystyki
         viewModel.getCompletedPlansCount().observe(getViewLifecycleOwner(), count -> {
             binding.tvTrainingsCount.setText(String.valueOf(count != null ? count : 0));
-            setStatLabel(binding.tvTrainingsCount, "Ukończone Plany");
+            setStatLabel(binding.tvTrainingsCount, getString(R.string.completed_plans_label));
         });
 
         viewModel.getCurrentStreak().observe(getViewLifecycleOwner(), streak -> {
             binding.tvStreakDays.setText(String.valueOf(streak != null ? streak : 0));
-            setStatLabel(binding.tvStreakDays, "Streak (Dni)");
+            setStatLabel(binding.tvStreakDays, getString(R.string.streak_label));
         });
 
         viewModel.getLastRecord().observe(getViewLifecycleOwner(), record -> {
             if (record != null) {
                 String val = record.isBodyweight()
-                        ? record.getCurrentOneRepMax().intValue() + " powt."
-                        : record.getCurrentOneRepMax().intValue() + " kg";
+                        ? getString(R.string.max_reps, record.getCurrentOneRepMax().intValue())
+                        : getString(R.string.max_weight, String.valueOf(record.getCurrentOneRepMax().intValue()));
                 binding.tvLastPR.setText(val);
 
                 String name = record.getExerciseName();
@@ -105,13 +111,12 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        // 4. Pozostałe
         viewModel.getExercisesRemainingCount().observe(getViewLifecycleOwner(), count -> {
             if (count != null) binding.tvExercisesRemaining.setText(getExercisesRemainingText(count));
         });
 
         viewModel.getCurrentUser().observe(getViewLifecycleOwner(), userEntity -> {
-            setupGreeting(userEntity != null ? userEntity.getUsername() : "Użytkowniku");
+            setupGreeting(userEntity != null ? userEntity.getUsername() : getString(R.string.default_user));
         });
 
         viewModel.getProgressCompleted().observe(getViewLifecycleOwner(), completed -> {
@@ -127,11 +132,9 @@ public class HomeFragment extends Fragment {
         int compVal = (completed != null) ? completed : 0;
         int totalVal = (total != null && total > 0) ? total : 1;
 
-        // Ustawiamy pasek
         binding.progressBar.setMax(totalVal);
         binding.progressBar.setProgress(compVal);
 
-        // Ustawiamy tekst: "Trening X z Y (Z%)"
         int percent = (int) (((float) compVal / totalVal) * 100);
         String text = getString(R.string.plan_progress_format, compVal, totalVal, percent);
         binding.tvPlanProgress.setText(text);
@@ -145,8 +148,6 @@ public class HomeFragment extends Fragment {
             updateTrainingButtonState(day, timestamp);
         }
     }
-
-    // --- ZARZĄDZANIE STANAMI UI ---
 
     private void showStateNoPlan() {
         binding.layoutTrainingButton.setVisibility(View.GONE);
@@ -175,13 +176,10 @@ public class HomeFragment extends Fragment {
         boolean isReady = viewModel.isTrainingReady();
 
         if (isReady) {
-            // STAN: MOŻNA TRENOWAĆ
-            binding.btnStartTraining.setText("Rozpocznij trening");
+            binding.btnStartTraining.setText(R.string.start_training);
             binding.btnStartTraining.setEnabled(true);
             binding.btnStartTraining.setAlpha(1.0f);
 
-            // NAPRAWA KOLORU: Używamy koloru z motywu (colorPrimary)
-            // Dzięki temu w Dark Mode będzie pomarańczowy/morski, a nie sztywny teal
             int colorPrimary = MaterialColors.getColor(binding.getRoot(), androidx.appcompat.R.attr.colorPrimary);
             binding.btnStartTraining.setBackgroundTintList(ColorStateList.valueOf(colorPrimary));
 
@@ -198,10 +196,10 @@ public class HomeFragment extends Fragment {
                 dateText = sdf.format(new Date(timestamp));
             }
 
-            binding.btnStartTraining.setText("Następny: " + dateText);
+            binding.btnStartTraining.setText(getString(R.string.next_label, dateText));
             binding.btnStartTraining.setEnabled(false);
             binding.btnStartTraining.setAlpha(0.7f);
-            
+
             int colorDisabled = MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorOutline);
             binding.btnStartTraining.setBackgroundTintList(ColorStateList.valueOf(colorDisabled));
 
@@ -213,10 +211,8 @@ public class HomeFragment extends Fragment {
         binding.layoutTrainingButton.setVisibility(View.GONE);
         binding.layoutNoPlan.setVisibility(View.GONE);
         binding.layoutNoTraining.setVisibility(View.VISIBLE);
-        binding.tvNextTrainingDate.setText("Plan ukończony! Czas wybrać nowy.");
+        binding.tvNextTrainingDate.setText(R.string.plan_finished_home_msg);
     }
-
-    // --- METODY POMOCNICZE ---
 
     private void setStatLabel(TextView valueView, String labelText) {
         if (valueView.getParent() instanceof ViewGroup) {
@@ -243,7 +239,7 @@ public class HomeFragment extends Fragment {
 
     @SuppressLint("StringFormatInvalid")
     private String getExercisesRemainingText(int count) {
-        return count + " ćwiczeń";
+        return getString(R.string.exercises_count_suffix, count);
     }
 
     @Override

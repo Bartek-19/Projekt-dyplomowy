@@ -24,33 +24,28 @@ public class MainViewModel extends ViewModel {
     private final WorkoutRepository workoutRepository;
     public final AuthManager authManager;
 
-    // --- GŁÓWNE DANE ---
     @Getter
     private final LiveData<TrainingPlanEntity> activeTrainingPlan;
     private final LiveData<UserEntity> currentUser;
 
-    // --- KALENDARZ / TRENING ---
     private final LiveData<TrainingDayEntity> _nextTrainingDay;
     private final LiveData<Long> _allowedDateTimestamp;
     private final LiveData<Integer> _exercisesRemainingCount;
 
-    // --- STATYSTYKI (DLA HOME) ---
     private final LiveData<Integer> completedPlansCount;
     private final LiveData<UserRecordEntity> lastRecord;
     private final LiveData<Integer> currentStreak;
 
     private final MutableLiveData<Boolean> _isLoading = new MutableLiveData<>();
 
-    // Gettery dla UI
     public LiveData<UserEntity> getCurrentUser() { return currentUser; }
     public LiveData<TrainingDayEntity> getNextTrainingDay() { return _nextTrainingDay; }
     public LiveData<Long> getAllowedDateTimestamp() { return _allowedDateTimestamp; }
     public LiveData<Integer> getExercisesRemainingCount() { return _exercisesRemainingCount; }
-
+    public LiveData<Boolean> getIsLoading() { return _isLoading; }
     public LiveData<Integer> getCompletedPlansCount() { return completedPlansCount; }
     public LiveData<UserRecordEntity> getLastRecord() { return lastRecord; }
     public LiveData<Integer> getCurrentStreak() { return currentStreak; }
-    public LiveData<Boolean> isLoading() { return _isLoading; }
     private final LiveData<Integer> progressCompleted;
     private final LiveData<Integer> progressTotal;
 
@@ -60,12 +55,10 @@ public class MainViewModel extends ViewModel {
         this.workoutRepository = workoutRepo;
         this.authManager = authManager;
 
-        // 1. Dane podstawowe
         this.activeTrainingPlan = planRepo.getActiveTrainingPlan();
         Integer userId = authManager.getUserId();
         this.currentUser = (userId != null) ? userRepo.getLiveUserDetails() : new MutableLiveData<>(null);
 
-        // 2. Logika "Co ćwiczyć dzisiaj?"
         this._nextTrainingDay = planRepo.getNextTrainingDayInQueue();
         this._allowedDateTimestamp = planRepo.getCalculatedNextTrainingDateTimestamp();
 
@@ -74,25 +67,21 @@ public class MainViewModel extends ViewModel {
             return planRepo.getRemainingExercisesCount(day.getId());
         });
 
-        // 3. Statystyki
         this.completedPlansCount = planRepo.getCompletedPlansCount();
         this.lastRecord = userRepo.getLatestRecord();
 
-        // UWAGA: Upewnij się, że dodałeś metodę calculateCurrentStreak() do PlanRepository w poprzednim kroku!
         this.currentStreak = planRepo.calculateCurrentStreak();
 
-        // 4. Synchronizacja przy starcie
         syncFullTrainingPlan();
-        userRepo.syncPlanHistory(); // Ważne dla licznika ukończonych planów
+        userRepo.syncPlanHistory();
         this.progressTotal = Transformations.switchMap(activeTrainingPlan, plan -> {
             if (plan == null) return new MutableLiveData<>(0);
-            return planRepo.getTotalScheduledSessions(plan.getId()); // Metoda z PlanRepository
+            return planRepo.getTotalScheduledSessions(plan.getId());
         });
 
-        // Liczba wykonanych sesji (zależy od ActivePlan, pobieramy z WorkoutRepository)
         this.progressCompleted = Transformations.switchMap(activeTrainingPlan, plan -> {
             if (plan == null) return new MutableLiveData<>(0);
-            return workoutRepo.getCompletedSessionsCount(plan.getId()); // Metoda z WorkoutRepository
+            return workoutRepo.getCompletedSessionsCount(plan.getId());
         });
     }
 
@@ -105,15 +94,12 @@ public class MainViewModel extends ViewModel {
         planRepository.syncFullTrainingPlan();
         _isLoading.postValue(false);
     }
-
-    // Helper: Czy dzisiaj można ćwiczyć? (Data minęła lub jest dzisiaj)
     public boolean isTrainingReady() {
         Long timestamp = _allowedDateTimestamp.getValue();
-        if (timestamp == null) return true; // Fallback
+        if (timestamp == null) return true;
         return timestamp <= System.currentTimeMillis() || DateUtils.isToday(timestamp);
     }
 
-    // Fabryka ViewModelu
     public static class Factory implements ViewModelProvider.Factory {
         private final PlanRepository planRepo;
         private final UserRepository userRepo;

@@ -10,8 +10,9 @@
     <color name="teal_700">#00796B</color>
 
     <color name="grey_50">#FAFAFA</color>
-    <color name="grey_100">#F5F5F5</color>
-    <color name="grey_800">#424242</color>
+    <color name="grey_100">#F3F3F3</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_800">#161616</color>
     <color name="grey_900">#121212</color>
 
     <color name="black">#000000</color>
@@ -20,6 +21,8 @@
     <color name="stat_green">#66BB6A</color>
     <color name="stat_blue">#42A5F5</color>
     <color name="stat_red">#EF5350</color>
+
+    <color name="color_outline">@color/grey_400</color>
 
     <color name="md_theme_light_primary">@color/orange_900</color>
     <color name="md_theme_light_onPrimary">@color/white</color>

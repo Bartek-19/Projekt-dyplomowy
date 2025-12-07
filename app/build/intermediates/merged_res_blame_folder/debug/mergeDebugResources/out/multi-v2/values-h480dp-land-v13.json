@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-43:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
+            "outputFile": "pl.pollub.android.powerstrongapp-mergeDebugResources-45:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\theka\\.gradle\\caches\\8.14.3\\transforms\\b7a4455faae5444b66882d60cf159a00\\transformed\\material-1.13.0\\res\\values-h480dp-land-v13\\values-h480dp-land-v13.xml",
+                    "source": "C:\\Users\\barte\\.gradle\\caches\\8.14.3\\transforms\\b7a4455faae5444b66882d60cf159a00\\transformed\\material-1.13.0\\res\\values-h480dp-land-v13\\values-h480dp-land-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
